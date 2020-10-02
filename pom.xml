@@ -18,10 +18,10 @@
 		<failOnMissingWebXml>false</failOnMissingWebXml>
 		<version.jakartaee>8.0.0</version.jakartaee>
 		<version.concurrencyUtilities>1.1.2</version.concurrencyUtilities>
-		<version.jca>1.7.4</version.jca>
 		<version.jbatch>1.0.2</version.jbatch>
 		<version.microprofile>3.3</version.microprofile>
 		<version.payara>5.2020.4</version.payara>
+		<version.lombok>1.18.4</version.lombok>
 		<primefaces.version>8.0</primefaces.version>
 		<junit-jupiter.version>5.5.0</junit-jupiter.version>
 		<mockito-core.version>3.1.0</mockito-core.version>
@@ -79,6 +79,11 @@
 			<artifactId>mockito-core</artifactId>
 			<version>${mockito-core.version}</version>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.4</version>
 		</dependency>
 	</dependencies>
 
