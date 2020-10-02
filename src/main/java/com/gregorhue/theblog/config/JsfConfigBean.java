@@ -5,6 +5,9 @@ import javax.faces.annotation.FacesConfig;
 import javax.faces.annotation.FacesConfig.Version;
 import javax.inject.Named;
 
+/* *
+ * Created by gregorhue on 29.09.2020.
+ */
 @Named
 @ApplicationScoped
 @FacesConfig(version = Version.JSF_2_3)
@@ -15,4 +18,5 @@ public class JsfConfigBean {
 	public String getMessage() {
 		return this.message;
 	}
+	
 }
