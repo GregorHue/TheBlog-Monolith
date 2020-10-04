@@ -6,6 +6,8 @@ package com.gregorhue.theblog.model;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
@@ -16,8 +18,9 @@ import javax.persistence.Entity;
 @AllArgsConstructor
 @SuperBuilder
 @Entity
-public class Category extends BaseEntity {
+public class Category extends BaseEntity implements Serializable {
 
+	private static final long serialVersionUID = 8949525803601019959L;
 	@Column
 	private String name;
 }

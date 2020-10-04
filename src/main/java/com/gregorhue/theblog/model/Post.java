@@ -11,6 +11,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,7 +22,9 @@ import java.util.Set;
 @AllArgsConstructor
 @SuperBuilder
 @Entity
-public class Post extends BaseEntity {
+public class Post extends BaseEntity implements Serializable {
+
+	private static final long serialVersionUID = -1860430367285107005L;
 
 	@NotEmpty
 	@Column

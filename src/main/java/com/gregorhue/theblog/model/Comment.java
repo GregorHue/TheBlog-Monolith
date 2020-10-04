@@ -6,6 +6,8 @@ package com.gregorhue.theblog.model;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -22,7 +24,9 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 @SuperBuilder
 @Entity
-public class Comment extends BaseEntity {
+public class Comment extends BaseEntity implements Serializable {
+
+	private static final long serialVersionUID = 7889406006566932078L;
 
 	@NotEmpty
 	@Size(max = 1000)

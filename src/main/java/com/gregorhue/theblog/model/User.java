@@ -1,5 +1,6 @@
 package com.gregorhue.theblog.model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -11,14 +12,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
-
-import com.gregorhue.blog.model.Comment;
-import com.gregorhue.blog.model.Person;
-import com.gregorhue.blog.model.Post;
-import com.gregorhue.blog.model.Role;
-import com.gregorhue.blog.model.User;
-import com.gregorhue.blog.model.User.UserBuilder;
-import com.gregorhue.blog.model.User.UserBuilderImpl;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -38,7 +31,10 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @SuperBuilder
 @Entity
-public class User extends Person {
+public class User extends Person implements Serializable {
+
+	private static final long serialVersionUID = 4305712957311775612L;
+
 
 	@NotNull
 	@Column(unique = true)

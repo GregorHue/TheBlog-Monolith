@@ -1,5 +1,6 @@
 package com.gregorhue.theblog.model;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,7 +27,9 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @SuperBuilder
 @Entity
-public class Role extends BaseEntity {
+public class Role extends BaseEntity implements Serializable {
+
+	private static final long serialVersionUID = -390475089298782993L;
 
 	@NotEmpty
 	@Column
