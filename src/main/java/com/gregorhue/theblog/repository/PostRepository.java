@@ -3,9 +3,6 @@ package com.gregorhue.theblog.repository;
 import java.io.Serializable;
 
 import javax.enterprise.context.SessionScoped;
-import javax.enterprise.inject.Produces;
-import javax.inject.Named;
-
 import com.gregorhue.theblog.model.Post;
 
 /**
@@ -16,12 +13,8 @@ public class PostRepository extends AbstractRepository<Post> implements Serializ
 	
 	private static final long serialVersionUID = -3857966746349277237L;
 
-	@Named
-	@Produces
-	public PostRepository producesPostRepository() {
-		PostRepository postRepository = new PostRepository();
-		postRepository.setClazz(Post.class);
-		return postRepository;
+	public PostRepository() {
+		setClazz(Post.class);
 	}
 
 }

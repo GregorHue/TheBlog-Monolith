@@ -6,16 +6,15 @@
 	<persistence-unit name="h2PU" transaction-type="JTA">
 		<jta-data-source>jdbc/__default</jta-data-source>
 		<properties>
-			<property name="javax.persistence.schema-generation.database.action"
+			<property name="javax.persistence.schema-generation.database.action"			
 				value="create" />
-			<property name="javax.persistence.jdbc.url"
-				value="jdbc:h2:mem:test;DB_CLOSE_DELAY=-1" />
 			<property name="eclipselink.deploy-on-startup" value="true" />
 			<property name="javax.persistence.sql-load-script-source"
 				value="init.sql" />
 
 			<property name="eclipselink.logging.level" value="CONFIG" />
-			<property name="eclipselink.logging.level.sql" value="CONFIG" />
+			<property name="eclipselink.logging.level.sql"
+				value="CONFIG" />
 			<property name="eclipselink.logging.parameters" value="true" />
 		</properties>
 	</persistence-unit>

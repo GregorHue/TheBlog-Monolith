@@ -22,7 +22,7 @@
 		<version.microprofile>3.3</version.microprofile>
 		<version.payara>5.2020.4</version.payara>
 		<version.lombok>1.18.4</version.lombok>
-		<primefaces.version>8.0</primefaces.version>
+		<primefaces.version>7.0</primefaces.version>
 		<junit-jupiter.version>5.5.0</junit-jupiter.version>
 		<mockito-core.version>3.1.0</mockito-core.version>
 		<m2e.apt.activation>jdt_apt</m2e.apt.activation>

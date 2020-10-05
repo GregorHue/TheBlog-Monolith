@@ -3,9 +3,6 @@ package com.gregorhue.theblog.repository;
 import java.io.Serializable;
 
 import javax.enterprise.context.SessionScoped;
-import javax.enterprise.inject.Produces;
-import javax.inject.Named;
-
 import com.gregorhue.theblog.model.Comment;
 
 /**
@@ -16,11 +13,7 @@ public class CommentRepository extends AbstractRepository<Comment> implements Se
 
 	private static final long serialVersionUID = 8515594387853447614L;
 
-	@Named
-	@Produces
-	public CommentRepository producesCommentRepository() {
-		CommentRepository commentRepository = new CommentRepository();
-		commentRepository.setClazz(Comment.class);
-		return commentRepository;
+	public CommentRepository() {
+		setClazz(Comment.class);
 	}
 }
