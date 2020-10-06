@@ -1,6 +1,6 @@
 package com.gregorhue.theblog.dto;
 
-import javax.inject.Named;
+import javax.enterprise.context.Dependent;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Named
+@Dependent
 public class SignupDto {
 
 	@NotNull

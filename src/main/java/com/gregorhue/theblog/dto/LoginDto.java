@@ -1,7 +1,6 @@
 package com.gregorhue.theblog.dto;
 
-import javax.inject.Named;
-
+import javax.enterprise.context.Dependent;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Named
+@Dependent
 public class LoginDto {
 
 	private String username;

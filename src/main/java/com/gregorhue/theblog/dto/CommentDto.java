@@ -2,8 +2,7 @@ package com.gregorhue.theblog.dto;
 
 import java.time.LocalDateTime;
 
-import javax.inject.Named;
-
+import javax.enterprise.context.Dependent;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.gregorhue.theblog.model.Vote;
@@ -20,7 +19,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Named
+@Dependent
 public class CommentDto {
 	
 	private LocalDateTime createdAt;	
