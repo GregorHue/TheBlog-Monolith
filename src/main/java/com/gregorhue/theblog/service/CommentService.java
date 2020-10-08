@@ -13,11 +13,11 @@ public interface CommentService {
 
 	CommentDto getCommentById(Long id);
 
-	CommentDto saveNewComment(CommentDto commentDto);
+	void saveNewComment(CommentDto commentDto);
 
-	CommentDto saveComment(Long id, CommentDto commentDto);
+	void saveComment(Long id, CommentDto commentDto);
 
-	CommentDto patchComment(Long id, CommentDto commentDto);
+	void patchComment(Long id, CommentDto commentDto);
 
 	void deleteCommentById(Long id);
 }

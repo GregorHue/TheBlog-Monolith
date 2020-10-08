@@ -3,6 +3,9 @@ package com.gregorhue.theblog.repository;
 import java.io.Serializable;
 
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
+
 import com.gregorhue.theblog.model.Category;
 
 /**
@@ -15,6 +18,12 @@ public class CategoryRepository extends AbstractRepository<Category> implements 
 
 	public CategoryRepository() {
 		setClazz(Category.class);
+	}
+
+	public Category findByName(String name) {
+		return entityManager.createQuery("select c from Category c where c.name=:name", Category.class)
+				.setParameter("name", name)
+				.getSingleResult();
 	}
 
 }

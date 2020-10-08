@@ -15,11 +15,11 @@ public interface PostService {
 
 	PostDto getPostById(Long id);
 
-	PostDto saveNewPost(PostDto postDto);
+	void saveNewPost(PostDto postDto);
 
-	PostDto savePost(Long id, PostDto postDto);
+	void savePost(Long id, PostDto postDto);
 
-	PostDto patchPost(Long id, PostDto postDto);
+    void patchPost(Long id, PostDto postDto);
 
 	void deletePostById(Long id);
 }

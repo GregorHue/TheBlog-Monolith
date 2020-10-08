@@ -41,6 +41,7 @@ public class Comment extends BaseEntity implements Serializable {
 	@JoinColumn
 	private User author;
 
+	@NotNull
 	@ManyToOne
 	@JoinColumn
 	private Post post;

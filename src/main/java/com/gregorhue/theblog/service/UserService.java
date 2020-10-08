@@ -15,9 +15,9 @@ public interface UserService {
 
 	UserDto getUserByUsername(String username);
 
-	UserDto saveNewUser(UserDto userDto);
+    void saveNewUser(UserDto userDto);
 
-	UserDto saveUser(Long id, UserDto UserDto);
+	void saveUser(Long id, UserDto UserDto);
 
 	void deleteUserById(Long id);
 }

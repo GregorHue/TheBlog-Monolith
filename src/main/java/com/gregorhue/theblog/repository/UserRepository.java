@@ -13,9 +13,16 @@ import com.gregorhue.theblog.model.User;
 public class UserRepository extends AbstractRepository<User> implements Serializable {
 	
 	private static final long serialVersionUID = -8796315541538927333L;
-
+	
 	public UserRepository () {
 		setClazz(User.class);
+	}
+
+	public User findByUsername(String username) {
+		
+		return entityManager.createQuery("select u from User u where u.username=:name", User.class)
+				.setParameter("name", username)
+				.getSingleResult();
 	}
 
 }

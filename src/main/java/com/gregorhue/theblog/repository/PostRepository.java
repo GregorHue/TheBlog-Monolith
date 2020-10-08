@@ -1,8 +1,12 @@
 package com.gregorhue.theblog.repository;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
+
 import com.gregorhue.theblog.model.Post;
 
 /**
@@ -16,5 +20,57 @@ public class PostRepository extends AbstractRepository<Post> implements Serializ
 	public PostRepository() {
 		setClazz(Post.class);
 	}
+	
+	public List<Post> findAllByAuthorId(Long authorId) {
+		List<Post> posts = entityManager.createQuery("select p from Post p where p.user.id =:id", Post.class)
+				.setParameter("id", authorId)
+				.getResultList();
+		return posts;
+	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
