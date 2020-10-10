@@ -24,7 +24,9 @@ public class BaseEntity {
 	private Long id;
 
 	@NotNull
+	@Column(name="CREATED_AT", columnDefinition = "TIMESTAMP")
 	private LocalDateTime createdAt;
 
+	@Column(name="LAST_UPDATED_AT", columnDefinition = "TIMESTAMP")
 	private LocalDateTime lastUpdatedAt;
 }

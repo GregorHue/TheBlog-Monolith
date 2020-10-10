@@ -5,8 +5,10 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -37,18 +39,17 @@ public class User extends Person implements Serializable {
 
 
 	@NotNull
-	@Column(unique = true)
+	@Column(name="USERNAME", unique = true)
 	private String username;
 
-	
-	@Column
+	@Column(name = "PASSWORD")
 	private String password;
 
-	@Column
+	@Column(name = "EMAIL")
 	private String email;
 
 	@ManyToMany
-	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+	@JoinTable(name = "USER_ROLE", joinColumns = @JoinColumn(name = "USER_ID"), inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
 	@Builder.Default
 	private Set<Role> roles = new HashSet<>();
 
@@ -56,9 +57,10 @@ public class User extends Person implements Serializable {
 	@Builder.Default
 	private Set<Comment> comments = new HashSet<>();
 
-	@OneToMany(mappedBy = "author")
+	@OneToMany(mappedBy = "author", cascade = CascadeType.REMOVE)
 	@Builder.Default
 	private Set<Post> posts = new HashSet<>();
 	
+	@Column(name="DELETED_TS", columnDefinition = "TIMESTAMP")
 	private LocalDateTime deletedTs;
 }

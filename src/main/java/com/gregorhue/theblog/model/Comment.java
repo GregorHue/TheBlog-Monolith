@@ -10,6 +10,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
@@ -30,20 +31,20 @@ public class Comment extends BaseEntity implements Serializable {
 
 	@NotEmpty
 	@Size(max = 1000)
-	@Column(length = 1000)
+	@Column(name="CONTENT", length = 1000)
 	private String content;
 
-	@Column(columnDefinition = "int default 0")
+	@Column(name="LIKES", columnDefinition = "int default 0")
 	private Integer likes;
 
 	@NotNull
-	@ManyToOne
-	@JoinColumn
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="AUTHOR_ID")
 	private User author;
 
 	@NotNull
-	@ManyToOne
-	@JoinColumn
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="POST_ID")
 	private Post post;
 	
 	@Transient

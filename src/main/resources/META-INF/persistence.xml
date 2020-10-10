@@ -12,9 +12,9 @@
 			<property name="javax.persistence.sql-load-script-source"
 				value="init.sql" />
 
-			<property name="eclipselink.logging.level" value="CONFIG" />
+			<property name="eclipselink.logging.level" value="FINEST" />
 			<property name="eclipselink.logging.level.sql"
-				value="CONFIG" />
+				value="FINEST" />
 			<property name="eclipselink.logging.parameters" value="true" />
 		</properties>
 	</persistence-unit>

@@ -32,7 +32,7 @@ public class Role extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = -390475089298782993L;
 
 	@NotEmpty
-	@Column
+	@Column(name="NAME")
 	private String name;
 
 	@Builder.Default

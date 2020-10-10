@@ -17,25 +17,25 @@ import javax.persistence.*;
 @SuperBuilder
 public class Person extends BaseEntity {
 
-	@Column
+	@Column(name = "FIRST_NAME")
 	private String firstName;
 
-	@Column
+	@Column(name = "LAST_NAME")
 	private String lastName;
 
 	@Enumerated(EnumType.STRING)
 	private Gender gender;
 
-	@Column
+	@Column(name="CITY")
 	private String city;
 
-	@Column
+	@Column(name="STREET")
 	private String street;
 
-	@Column
+	@Column(name = "HOUSE_NUMBER")
 	private Integer houseNumber;
 
-	@Column
+	@Column(name = "POSTAL_CODE")
 	private String postalCode;
 }
 

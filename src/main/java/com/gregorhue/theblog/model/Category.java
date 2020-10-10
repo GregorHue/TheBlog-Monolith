@@ -21,6 +21,7 @@ import javax.persistence.Entity;
 public class Category extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 8949525803601019959L;
-	@Column
+	
+	@Column(name = "NAME")
 	private String name;
 }

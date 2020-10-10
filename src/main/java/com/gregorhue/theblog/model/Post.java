@@ -27,28 +27,28 @@ public class Post extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = -1860430367285107005L;
 
 	@NotEmpty
-	@Column
+	@Column(name="TITLE")
 	private String title;
 
 	@NotEmpty
 	@Size(max = 1000)
-	@Column(length = 1000)
+	@Column(name="CONTENT", length = 1000)
 	private String content;
 
-	@Column(columnDefinition = "int default 0")
+	@Column(name="LIKES", columnDefinition = "int default 0")
 	private Integer likes;
 
 	@NotNull
-	@ManyToOne
-	@JoinColumn
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="CATEGORY_ID")
 	private Category category;
 
 	@NotNull
-	@ManyToOne
-	@JoinColumn
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="AUTHOR_ID")
 	private User author;
 
-	@OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "post")
 	@Builder.Default
 	private Set<Comment> comments = new HashSet<>();
 	
