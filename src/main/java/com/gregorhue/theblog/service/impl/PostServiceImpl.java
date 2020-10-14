@@ -91,10 +91,7 @@ public class PostServiceImpl implements PostService {
 				post.setLikes(post.getLikes() - 1);
 			}
 			postRepository.save(post);
-			post.getAuthor().getUsername();
-			postMapper.toPostDto(post);
 		}
-
 	}
 
 	@Override

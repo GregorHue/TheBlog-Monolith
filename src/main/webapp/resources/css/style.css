@@ -1,8 +1,37 @@
 .noMargin.navbar {
-	margin-bottom: 0px;
+    margin-bottom: 0;
+    background-color: #6c757d;
+    background-image: none;
 }
 
-.jumbotron  {
-  padding: 2rem 2rem !important;
-  margin-bottom: 5px !important;
+div.jumbotron {
+    padding: 2rem 2rem;
+    margin-bottom: 5px;
+    background-color: #e9ecef;
+}
+
+div.well {
+    background-color: white;
+    background-image: none;
+    border-radius: 10px;
+}
+
+button.buttonLink {
+    padding: 0 5px;
+    border: 0 solid white;
+    background: none;
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+}
+
+button.buttonLink:hover, button.buttonLink:focus, button.buttonLink:active,
+button.buttonLink:active:hover, button.buttonLink:active:focus {
+    background-color: rgba(0,123,255,.25);
+    background-position-y: 0;
+    box-shadow: 0 0 0 0 rgba(0,123,255,.25);
+    border-color: white;
+    border-width: 0;
+}
+
+button.buttonLink:focus {
+    outline: none;
 }
