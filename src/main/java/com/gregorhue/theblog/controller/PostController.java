@@ -10,6 +10,7 @@ import javax.inject.Named;
 
 import com.gregorhue.theblog.dto.PostDto;
 import com.gregorhue.theblog.dto.UserDto;
+import com.gregorhue.theblog.model.Vote;
 import com.gregorhue.theblog.service.PostService;
 import com.gregorhue.theblog.service.UserService;
 
@@ -64,8 +65,22 @@ public class PostController implements Serializable {
 	}
 
 	
-	public void patchPost(Long id, PostDto postDto) {
+	private void patchPost(Long id, PostDto postDto) {
 		postService.patchPost(id, postDto);		
+	}
+	
+	public void upvotePost(PostDto postDto) {
+		Long postId = Long.parseLong(postDto.getPostUrl().split("/")[2]);
+		postDto.setOption(Vote.UPVOTE);
+		patchPost(postId, postDto);
+		posts = getAllPosts();
+	}
+
+	public void downvotePost(PostDto postDto) {
+		Long postId = Long.parseLong(postDto.getPostUrl().split("/")[2]);
+		postDto.setOption(Vote.DOWNVOTE);
+		patchPost(postId, postDto);
+		posts = getAllPosts();
 	}
 
 	public void deletePost(Long id) {
