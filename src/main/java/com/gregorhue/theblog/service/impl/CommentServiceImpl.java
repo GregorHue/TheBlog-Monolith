@@ -64,10 +64,10 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	private void processCommentDto(CommentDto commentDto, Comment comment) {
-		Long postId = Long.parseLong(commentDto.getPostUrl().split("/")[2]);
+		Long postId = Long.parseLong(commentDto.getPostUrl().split("=")[1]);
 		Post post = postRepository.findOne(postId);
 		comment.setPost(post);
-		Long authorId = Long.parseLong(commentDto.getAuthorUrl().split("/")[2]);
+		Long authorId = Long.parseLong(commentDto.getAuthorUrl().split("=")[1]);
 		User author = userRepository.findOne(authorId);
 		comment.setAuthor(author);
 		comment.setAuthorname(comment.getAuthor().getUsername());

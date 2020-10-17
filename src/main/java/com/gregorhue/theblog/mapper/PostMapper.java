@@ -14,9 +14,8 @@ import com.gregorhue.theblog.model.Post;
 @Mapper(componentModel = "cdi")
 public interface PostMapper {
 
-	@Mapping(target = "postUrl", expression = "java(\"/posts/\" + post.getId())")
-	@Mapping(target = "authorUrl", expression = "java(\"/users/\" + post.getAuthor().getId())")
-	@Mapping(target = "commentsUrl", expression = "java(\"/posts/\" + post.getId() + \"/comments\")")
+	@Mapping(target = "postUrl", expression = "java(\"/posts?id=\" + post.getId())")
+	@Mapping(target = "authorUrl", expression = "java(\"/users?id=\" + post.getAuthor().getId())")
 	PostDto toPostDto(Post post);
 
 	Post toPost(PostDto postDto);

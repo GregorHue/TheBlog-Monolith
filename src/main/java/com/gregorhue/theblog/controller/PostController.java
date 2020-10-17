@@ -58,7 +58,7 @@ public class PostController implements Serializable {
 	}
 
 	public void updatePost(Long id, PostDto postDto) {
-		Long userId = Long.parseLong(postDto.getAuthorUrl().split("/")[2]);
+		Long userId = Long.parseLong(postDto.getAuthorUrl().split("=")[1]);
 		UserDto userDto = userService.getUserById(userId);	
 		postService.savePost(id, postDto);
 	}

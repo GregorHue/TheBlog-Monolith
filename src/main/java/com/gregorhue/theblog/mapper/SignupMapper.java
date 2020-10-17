@@ -12,7 +12,7 @@ import com.gregorhue.theblog.model.User;
 @Mapper(componentModel = "cdi")
 public interface SignupMapper {
 
-	@Mapping(target = "userUrl", expression = "java(\"/users/\" + user.getId())")
+	@Mapping(target = "userUrl", expression = "java(\"/users?id=\" + user.getId())")
 	@Mapping(target = "password", ignore = true)
 	@Mapping(target = "confirmPassword", ignore = true)
 	SignupDto toSignupDto(User user);

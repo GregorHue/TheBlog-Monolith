@@ -61,7 +61,7 @@ public class CommentController implements Serializable {
 	}
 
 	public void updateComment(Long id, CommentDto commentDto) {
-		Long userId = Long.parseLong(commentDto.getAuthorUrl().split("/")[2]);	
+		Long userId = Long.parseLong(commentDto.getAuthorUrl().split("=")[1]);	
 		commentService.saveComment(id, commentDto);
 	}
 

@@ -71,7 +71,7 @@ public class PostServiceImpl implements PostService {
 	}
 
 	private void processPostDto(PostDto postDto, Post post) {
-		Long authorId = Long.parseLong(postDto.getAuthorUrl().split("/")[2]);
+		Long authorId = Long.parseLong(postDto.getAuthorUrl().split("=")[1]);
 		User author = userRepository.findOne(authorId);
 		post.setAuthor(author);
 		Category category = categoryRepository.findByName(postDto.getCategory().getName());

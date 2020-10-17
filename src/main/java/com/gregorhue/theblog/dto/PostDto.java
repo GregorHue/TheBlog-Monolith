@@ -35,9 +35,6 @@ public class PostDto {
 
 	@JsonProperty("post_url")
 	private String postUrl;
-
-	@JsonProperty("comments_url")
-	private String commentsUrl;
 	
 	@JsonProperty(access = Access.WRITE_ONLY)
 	private Vote option;

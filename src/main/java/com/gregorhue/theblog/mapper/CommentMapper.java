@@ -14,9 +14,9 @@ import com.gregorhue.theblog.model.Comment;
 @Mapper(componentModel = "cdi")
 public interface CommentMapper {
 
-	@Mapping(target = "commentUrl", expression = "java(\"/comments/\" + comment.getId())")
-	@Mapping(target = "postUrl", expression = "java(\"/posts/\" + comment.getPost().getId())")
-	@Mapping(target = "authorUrl", expression = "java(\"/users/\" + comment.getAuthor().getId())")
+	@Mapping(target = "commentUrl", expression = "java(\"/comments?id=\" + comment.getId())")
+	@Mapping(target = "postUrl", expression = "java(\"/posts?id=\" + comment.getPost().getId())")
+	@Mapping(target = "authorUrl", expression = "java(\"/users?id=\" + comment.getAuthor().getId())")
 	CommentDto toCommentDto(Comment comment);
 
 	Comment toComment(CommentDto commentDto);
