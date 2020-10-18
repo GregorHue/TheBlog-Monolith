@@ -37,8 +37,8 @@
         <b:container id="container">
             <h2 style="text-align: center; margin-top: 8px;">Posts</h2>
             <b:column col-sm="9" col-md="9" col-xl="10">
-                <ui:fragment rendered="#{postController.posts != null and postController.posts.size() > 0}">
-                    <ui:repeat value="#{postController.posts}" var="post">
+                <ui:fragment rendered="#{indexController.posts != null and indexController.posts.size() > 0}">
+                    <ui:repeat value="#{indexController.posts}" var="post">
                         <b:row>
                             <b:column col-md="11">
                                 <b:well>
@@ -57,7 +57,7 @@
                                                     <b:commandButton styleClass="buttonLink" tooltip="Upvote"
                                                                      update="tLikes"
                                                                      ajax="true"
-                                                                     actionListener="#{postController.upvotePost(post)}">
+                                                                     actionListener="#{indexController.upvotePost(post)}">
                                                         <b:iconAwesome value="caret-up" size="2x"
                                                                        styleClass="text-muted"/>
                                                     </b:commandButton>
@@ -70,9 +70,9 @@
                                                 </div>
                                                 <ui:fragment rendered="true">
                                                     <b:commandButton styleClass="buttonLink" tooltip="Downvote"
-                                                                     update="tLikes" tooltipPosition="bottom"
+                                                                     update="tLikes" tooltipPosition="right"
                                                                      ajax="true"
-                                                                     actionListener="#{postController.downvotePost(post)}">
+                                                                     actionListener="#{indexController.downvotePost(post)}">
                                                         <b:iconAwesome value="caret-down" size="2x"
                                                                        styleClass="text-muted"/>
                                                     </b:commandButton>
@@ -86,7 +86,12 @@
                                             #{post.content}
                                         </b:column>
                                     </b:row>
-
+                                    <b:row>
+                                        <b:column colSm="3">
+                                            <b:button tooltip="Show Comments" tooltipPosition="right" look="primary"
+                                            outcome="#{post.postUrl}"  iconAwesome="fa-comments" class="icon" />
+                                        </b:column>
+                                    </b:row>
                                 </b:well>
                             </b:column>
                         </b:row>

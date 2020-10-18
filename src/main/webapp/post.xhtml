@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:head>
+    <title>TheBlog</title>
+    <h:outputStylesheet name="css/style.css"/>
+    <f:metadata>
+        <f:viewParam name="id" value="#{postController.postId}" converter="javax.faces.Long"/>
+        <f:event type="preRenderView" listener="#{postController.onInit}"/>
+    </f:metadata>
+
+</h:head>
+
+<h:body>
+    <f:view>
+<h:outputText value="#{postController.postId}" />
+    </f:view>
+</h:body>
+</html>

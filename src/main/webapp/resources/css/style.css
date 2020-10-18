@@ -21,6 +21,7 @@ button.buttonLink {
     border: 0 solid white;
     background: none;
     box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+    margin-bottom: 10px;
 }
 
 button.buttonLink:hover, button.buttonLink:focus, button.buttonLink:active,
@@ -30,8 +31,21 @@ button.buttonLink:active:hover, button.buttonLink:active:focus {
     box-shadow: 0 0 0 0 rgba(0,123,255,.25);
     border-color: white;
     border-width: 0;
+    margin-bottom: 10px;
 }
 
 button.buttonLink:focus {
     outline: none;
+}
+
+.well {
+    padding: 15px 19px !important;
+}
+
+.btn.icon  {
+    background: none;
+    background-color: #007bff;
+    padding: 4px 10px;
+    border-radius: 4px;
+    border: 1px solid #007bff;
 }

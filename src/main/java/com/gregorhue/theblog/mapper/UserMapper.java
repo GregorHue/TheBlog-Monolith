@@ -14,7 +14,7 @@ import com.gregorhue.theblog.model.User;
 @Mapper(componentModel = "cdi")
 public interface UserMapper {
 
-	@Mapping(target = "userUrl", expression = "java(\"/users?id=\" + user.getId())")
+	@Mapping(target = "userUrl", expression = "java(\"/user?id=\" + user.getId())")
 	@Mapping(target = "password", ignore = true)
 	UserDto toUserDto(User user);
 
