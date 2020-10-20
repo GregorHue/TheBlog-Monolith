@@ -49,3 +49,16 @@ button.buttonLink:focus {
     border-radius: 4px;
     border: 1px solid #007bff;
 }
+
+.small {
+	font-size: small;
+}
+
+.italic {
+	font-style: italic;
+}
+
+.align-center {
+	display: flex;
+	align-items: center;
+}
