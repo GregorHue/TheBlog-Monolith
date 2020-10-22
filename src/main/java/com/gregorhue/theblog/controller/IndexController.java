@@ -1,18 +1,18 @@
 package com.gregorhue.theblog.controller;
 
-import java.io.Serializable;
-import java.util.List;
-
-import javax.annotation.PostConstruct;
-import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
-
 import com.gregorhue.theblog.dto.PostDto;
 import com.gregorhue.theblog.dto.UserDto;
 import com.gregorhue.theblog.model.Vote;
 import com.gregorhue.theblog.service.PostService;
 import com.gregorhue.theblog.service.UserService;
+
+import javax.annotation.PostConstruct;
+import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+import java.io.Serializable;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by gregorhue on 09.10.2020.
@@ -31,6 +31,8 @@ public class IndexController implements Serializable {
 	private UserService userService;
 	
 	private List<PostDto> posts;
+
+	private PostDto currentPost;
 	
 	@PostConstruct
 	public void onInit() {
@@ -83,13 +85,22 @@ public class IndexController implements Serializable {
 		posts = getAllPosts();
 	}
 
-	public void deletePost(Long id) {
-		postService.deletePostById(id);
+	public void deletePost() {
+		Long postId = Long.parseLong(currentPost.getPostUrl().split("=")[1]);
+		postService.deletePostById(postId);
+		posts = posts.stream().filter(post -> !post.getPostUrl().equals(currentPost.getPostUrl())).collect(Collectors.toList());
 	}
 
 	public List<PostDto> getPosts() {
 		return posts;
 	}
 
+	public PostDto getCurrentPost() {
+		return currentPost;
+	}
+
+	public void setCurrentPost(PostDto currentPost) {
+		this.currentPost = currentPost;
+	}
 }
 

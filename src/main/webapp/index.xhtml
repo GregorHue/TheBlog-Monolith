@@ -1,135 +1,185 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:jsf="http://xmlns.jcp.org/jsf"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:b="http://bootsfaces.net/ui"
-	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
 
 <h:head>
-	<title>TheBlog</title>
-	<h:outputStylesheet name="css/style.css" />
+    <title>TheBlog</title>
+    <h:outputStylesheet name="css/style.css"/>
 </h:head>
 
 <h:body>
-	<f:view>
-		<b:navBar brand="Brand" brandHref="#" styleClass="noMargin">
-			<b:navbarLinks>
-				<b:navLink value="Home" href="#" />
-				<b:navLink value="Link" href="#" />
-				<b:navLink value="Link" href="#" />
-			</b:navbarLinks>
-		</b:navBar>
-		<b:jumbotron>
-			<b:container>
-				<b:row>
-					<b:column col-xs="12" col-sm="10">
-						<h1>TheBlog</h1>
-						<p style="margin-left: 11px">Post, Comment and Vote!</p>
-						<hr style="border-color: rgba(51, 51, 51, 0.6)" />
-						<h4 style="margin-left: 12px">A demo blog</h4>
-					</b:column>
-				</b:row>
-			</b:container>
-		</b:jumbotron>
-		<b:container id="container">
-			<h2 style="text-align: center; margin-top: 8px;">Posts</h2>
-			<b:column col-sm="9" col-md="9" col-xl="10">
-				<ui:fragment
-					rendered="#{indexController.posts != null and indexController.posts.size() > 0}">
-					<ui:repeat value="#{indexController.posts}" var="post">
-						<b:row>
-							<b:column col-md="11">
-								<b:well>
+    <f:view>
+        <b:navBar brand="Brand" brandHref="#" styleClass="noMargin">
+            <b:navbarLinks>
+                <b:navLink value="Home" href="#"/>
+                <b:navLink value="Link" href="#"/>
+                <b:navLink value="Link" href="#"/>
+            </b:navbarLinks>
+        </b:navBar>
+        <b:jumbotron>
+            <b:container>
+                <b:row>
+                    <b:column col-xs="12" col-sm="10">
+                        <h1>TheBlog</h1>
+                        <p style="margin-left: 11px">Post, Comment and Vote!</p>
+                        <hr style="border-color: rgba(51, 51, 51, 0.6)"/>
+                        <h4 style="margin-left: 12px">A demo blog</h4>
+                    </b:column>
+                </b:row>
+            </b:container>
+        </b:jumbotron>
+        <b:container id="container">
+            <h2 style="text-align: center; margin-top: 8px;">Posts</h2>
+            <b:column col-sm="9" col-md="9" col-xl="10">
+                <ui:fragment
+                        rendered="#{indexController.posts != null and indexController.posts.size() > 0}">
+                    <ui:repeat value="#{indexController.posts}" var="post">
+                        <b:row>
+                            <b:column col-md="11">
+                                <b:well>
 
-									<div jsf:id="divTitle"
-										style="font-weight: bolder; font-size: larger">
-										<h:outputText value="#{post.title}" />
-									</div>
-									<div jsf:id="divSubtitle">
-										<h:outputText value="#{post.category.name}" />
-									</div>
-									<hr />
-									<b:row>
-										<b:column col-xs="1"
-											style="align-self: center; text-align: center">
-											<h:form>
-												<ui:fragment rendered="true">
-													<b:commandButton styleClass="buttonLink" tooltip="Upvote"
-														update="tLikes" ajax="true"
-														actionListener="#{indexController.upvotePost(post)}">
-														<b:iconAwesome value="caret-up" size="2x"
-															styleClass="text-muted" />
-													</b:commandButton>
-												</ui:fragment>
-												<ui:fragment rendered="false">
+                                    <div jsf:id="divTitle"
+                                         style="font-weight: bolder; font-size: larger">
+                                        <h:outputText value="#{post.title}"/>
+                                    </div>
+                                    <div jsf:id="divSubtitle">
+                                        <h:outputText value="#{post.category.name}"/>
+                                    </div>
+                                    <hr/>
+                                    <b:row>
+                                        <b:column col-xs="1"
+                                                  style="align-self: center; text-align: center">
+                                            <h:form>
+                                                <ui:fragment rendered="true">
+                                                    <b:commandButton styleClass="buttonLink" tooltip="Upvote"
+                                                                     update="tLikes" ajax="true"
+                                                                     actionListener="#{indexController.upvotePost(post)}">
+                                                        <b:iconAwesome value="caret-up" size="2x"
+                                                                       styleClass="text-muted"/>
+                                                    </b:commandButton>
+                                                </ui:fragment>
+                                                <ui:fragment rendered="false">
 
-												</ui:fragment>
-												<div jsf:id="divLikes">
-													<h:outputText id="tLikes" value="#{post.likes}" />
-												</div>
-												<ui:fragment rendered="true">
-													<b:commandButton styleClass="buttonLink" tooltip="Downvote"
-														update="tLikes" tooltipPosition="right" ajax="true"
-														actionListener="#{indexController.downvotePost(post)}">
-														<b:iconAwesome value="caret-down" size="2x"
-															styleClass="text-muted" />
-													</b:commandButton>
-												</ui:fragment>
-												<ui:fragment rendered="false">
+                                                </ui:fragment>
+                                                <div jsf:id="divLikes">
+                                                    <h:outputText id="tLikes" value="#{post.likes}"/>
+                                                </div>
+                                                <ui:fragment rendered="true">
+                                                    <b:commandButton styleClass="buttonLink" tooltip="Downvote"
+                                                                     update="tLikes" tooltipPosition="right" ajax="true"
+                                                                     actionListener="#{indexController.downvotePost(post)}">
+                                                        <b:iconAwesome value="caret-down" size="2x"
+                                                                       styleClass="text-muted"/>
+                                                    </b:commandButton>
+                                                </ui:fragment>
+                                                <ui:fragment rendered="false">
 
-												</ui:fragment>
-											</h:form>
-										</b:column>
-										<b:column col-xs="11">
+                                                </ui:fragment>
+                                            </h:form>
+                                        </b:column>
+                                        <b:column col-xs="11">
                                             #{post.content}
                                         </b:column>
-									</b:row>
-									<b:row>
-										<b:column colSm="3">
-											<b:button tooltip="Show Comments" tooltipPosition="right"
-												look="primary" outcome="#{post.postUrl}"
-												iconAwesome="fa-comments" class="icon" />
-										</b:column>
-										<b:column colSm="12" colMd="9" colLg="6" colXl="7" style="display: flex">
-											<div class="align-center">
-												<ui:fragment rendered="#{!empty post.lastUpdatedAt}">
-													<div>
-														<div class="italic small">
-															<h:outputText
-																value="Created #{post.createdAt.toString().substring(0, 10)}" />
-														</div>
-														<div class="italic small">
-															<h:outputText
-																value="Edited #{post.lastUpdatedAt.toString().substring(0, 10)}" />
-														</div>
-													</div>
-												</ui:fragment>
-												<ui:fragment rendered="#{empty post.lastUpdatedAt}">
-													<div class="italic small">
-														<h:outputText
-															value="Created #{post.createdAt.toString().substring(0, 10)}" />
-													</div>
-												</ui:fragment>
-											</div>
-											<div class="align-center">
-												<b:iconAwesome value="user-circle" style="margin-right: 5px"
-													styleClass="pull-right" size="2x" />
-											</div>
-											<div class="italic align-center">
-												<h:outputText value="#{post.authorname}" />
-											</div>
-										</b:column>
-									</b:row>
-								</b:well>
-							</b:column>
-						</b:row>
-					</ui:repeat>
-				</ui:fragment>
-			</b:column>
-		</b:container>
-	</f:view>
+                                    </b:row>
+                                    <b:row>
+                                        <b:column colSm="3">
+                                            <b:button tooltip="Show Comments" tooltipPosition="right"
+                                                      look="primary" outcome="#{post.postUrl}"
+                                                      iconAwesome="fa-comments" class="icon"
+                                                      style="margin-bottom: 5px;"/>
+                                        </b:column>
+                                        <b:column colSm="12" colMd="9" colLg="6" colXl="7" style="display: flex">
+                                            <div class="align-center">
+                                                <ui:fragment rendered="#{!empty post.lastUpdatedAt}">
+                                                    <div>
+                                                        <div class="italic small">
+                                                            <h:outputText
+                                                                    value="Created #{post.createdAt.toString().substring(0, 10)}"/>
+                                                        </div>
+                                                        <div class="italic small">
+                                                            <h:outputText
+                                                                    value="Edited #{post.lastUpdatedAt.toString().substring(0, 10)}"/>
+                                                        </div>
+                                                    </div>
+                                                </ui:fragment>
+                                                <ui:fragment rendered="#{empty post.lastUpdatedAt}">
+                                                    <div class="italic small">
+                                                        <h:outputText
+                                                                value="Created #{post.createdAt.toString().substring(0, 10)}"/>
+                                                    </div>
+                                                </ui:fragment>
+                                            </div>
+                                            <div class="align-center">
+                                                <b:iconAwesome value="user-circle" style="margin-right: 5px"
+                                                               styleClass="pull-right" size="2x"/>
+                                            </div>
+                                            <div class="italic align-center">
+                                                <h:outputText value="#{post.authorname}"/>
+                                            </div>
+                                        </b:column>
+                                        <b:column colSm="12" colLg="3" colXl="2">
+                                            <h:form>
+                                                <b:commandButton tooltip="Edit Post" tooltipPosition="left"
+                                                                 ajax="true"
+                                                                 oncomplete="showModal1()"
+                                                                 update=":form1"
+                                                                 look="primary"
+                                                                 iconAwesome="fa-pencil" class="icon"
+                                                                 actionListener="#{indexController.setCurrentPost(post)}">
+                                                </b:commandButton>#{" "}
+                                                <b:commandButton tooltip="Delete Post" tooltipPosition="right"
+                                                                 ajax="true"
+                                                                 oncomplete="showModal2()"
+                                                                 look="primary"
+                                                                 iconAwesome="fa-trash" class="icon"
+                                                                 actionListener="#{indexController.setCurrentPost(post)}"/>
+                                            </h:form>
+                                        </b:column>
+                                    </b:row>
+                                </b:well>
+                            </b:column>
+                        </b:row>
+                    </ui:repeat>
+                </ui:fragment>
+            </b:column>
+        </b:container>
+        <b:modal id="modal1" title="Edit Post" size="lg">
+            <h:form id="form1">
+                <b:inputText label="Titel:" labelStyle="width:80px;" value="#{indexController.currentPost.title}"/>
+                <b:inputTextarea label="Inhalt:" labelStyle="width:80px;"
+                                 value="#{indexController.currentPost.content}"/>
+            </h:form>
+        </b:modal>
+        <b:modal id="modal2" title="Confirmation" size="lg" closable="false">
+            <h:outputText value="Do you really want to delete this post?"/>
+            <f:facet name="footer">
+                <h:form id="form2">
+                    <b:button value="Close" dismiss="modal"/>
+                    <b:commandButton value="Ok" look="primary" oncomplete="dismissModal2()" ajax="true"
+                                     update=":container"
+                                     actionListener="#{indexController.deletePost}"/>
+                </h:form>
+            </f:facet>
+        </b:modal>
+    </f:view>
+    <script>
+        function showModal1() {
+            $('#modal1').modal('show');
+        }
+
+        function showModal2() {
+            $('#modal2').modal('show');
+        }
+
+        function dismissModal2() {
+            $('#modal2').modal('hide');
+        }
+    </script>
 </h:body>
 </html>

@@ -48,7 +48,7 @@ public class Post extends BaseEntity implements Serializable {
 	@JoinColumn(name="AUTHOR_ID")
 	private User author;
 
-	@OneToMany(mappedBy = "post")
+	@OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
 	@Builder.Default
 	private Set<Comment> comments = new HashSet<>();
 	

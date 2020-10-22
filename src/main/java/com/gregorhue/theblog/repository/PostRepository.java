@@ -22,7 +22,7 @@ public class PostRepository extends AbstractRepository<Post> implements Serializ
 	}
 	
 	public List<Post> findAllByAuthorId(Long authorId) {
-		List<Post> posts = entityManager.createQuery("select p from Post p where p.user.id =:id", Post.class)
+		List<Post> posts = entityManager.createQuery("select p from Post p where p.author.id =:id", Post.class)
 				.setParameter("id", authorId)
 				.getResultList();
 		return posts;
