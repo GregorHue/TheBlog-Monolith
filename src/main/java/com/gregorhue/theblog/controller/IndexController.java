@@ -1,8 +1,10 @@
 package com.gregorhue.theblog.controller;
 
+import com.gregorhue.theblog.dto.CategoryDto;
 import com.gregorhue.theblog.dto.PostDto;
 import com.gregorhue.theblog.dto.UserDto;
 import com.gregorhue.theblog.model.Vote;
+import com.gregorhue.theblog.service.CategoryService;
 import com.gregorhue.theblog.service.PostService;
 import com.gregorhue.theblog.service.UserService;
 
@@ -30,15 +32,25 @@ public class IndexController implements Serializable {
 	@Inject
 	private UserService userService;
 	
+	@Inject
+	private CategoryService categoryService;
+	
 	private List<PostDto> posts;
 
 	private PostDto currentPost;
 	
+	private List<CategoryDto> categories;
+	
 	@PostConstruct
 	public void onInit() {
 		posts = getAllPosts();
+		categories = getAllCategories();
 	}
 	
+	public List<CategoryDto> getAllCategories() {
+		return categoryService.getAll();
+	}
+
 	public List<PostDto> getAllPosts() {	
 		return postService.getAllPosts();
 	}
@@ -102,5 +114,10 @@ public class IndexController implements Serializable {
 	public void setCurrentPost(PostDto currentPost) {
 		this.currentPost = currentPost;
 	}
+
+	public List<CategoryDto> getCategories() {
+		return categories;
+	}
+	
 }
 
