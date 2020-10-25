@@ -40,6 +40,10 @@ public class IndexController implements Serializable {
 	private PostDto currentPost;
 	
 	private List<CategoryDto> categories;
+
+	private String sortOrder = "newest";
+
+	private String filterOrder = "All";
 	
 	@PostConstruct
 	public void onInit() {
@@ -118,6 +122,30 @@ public class IndexController implements Serializable {
 	public List<CategoryDto> getCategories() {
 		return categories;
 	}
-	
+
+	public String getSortOrder() {
+		return sortOrder;
+	}
+
+	public void setSortOrder(String sortOrder) {
+		this.sortOrder = sortOrder;
+	}
+
+	public String getFilterOrder() {
+		return filterOrder;
+	}
+
+	public void setFilterOrder(String filterOrder) {
+		this.filterOrder = filterOrder;
+	}
+
+	public void sort() {
+		System.out.println(sortOrder);
+	}
+
+	public void filter() {
+		System.out.println(filterOrder);
+	}
+
 }
 

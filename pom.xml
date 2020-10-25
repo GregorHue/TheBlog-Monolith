@@ -28,6 +28,15 @@
 		<m2e.apt.activation>jdt_apt</m2e.apt.activation>
 	</properties>
 
+	<repositories>
+		<repository>
+			<id>prime-repo</id>
+			<name>PrimeFaces Maven Repository</name>
+			<url>https://repository.primefaces.org</url>
+			<layout>default</layout>
+		</repository>
+	</repositories>
+
 	<dependencies>
 		<dependency>
 			<groupId>jakarta.platform</groupId>
@@ -92,6 +101,11 @@
 			<artifactId>bootsfaces</artifactId>
 			<version>1.5.0</version>
 			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.primefaces</groupId>
+			<artifactId>primefaces</artifactId>
+			<version>7.0</version>
 		</dependency>
 	</dependencies>
 

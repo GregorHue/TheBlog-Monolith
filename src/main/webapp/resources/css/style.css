@@ -44,21 +44,32 @@ button.buttonLink:focus {
 
 .btn.icon  {
     background: none;
-    background-color: #007bff;
+    background-color: #007ad9;
     padding: 4px 10px;
     border-radius: 4px;
-    border: 1px solid #007bff;
-}
-
-.small {
-	font-size: small;
-}
-
-.italic {
-	font-style: italic;
+    border: 1px solid #007ad9;
 }
 
 .align-center {
 	display: flex;
 	align-items: center;
+}
+
+div.ui-button {
+    display: block !important;
+    padding: 4px 10px !important;
+    border-radius: 5px !important;
+    width: 120px;
+}
+
+body .ui-buttonset:not(.ui-splitbutton) > .ui-button {
+    margin-bottom: 10px;
+}
+
+.btn.btn-modal  {
+    background: none;
+    background-color: #007ad9;
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: 1px solid #007ad9;
 }
