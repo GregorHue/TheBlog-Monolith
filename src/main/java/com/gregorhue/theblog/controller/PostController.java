@@ -38,21 +38,23 @@ public class PostController implements Serializable {
 
     private PostDto post;
 
+    private CommentDto currentComment;
+
     public void onInit() {
         post = postService.getPostById(postId);
         comments = commentService.getAllCommentsByPostId(postId);
 
     }
 
-    public List<CommentDto> getAllCommentsByPostId(Long postId) {
-        return commentService.getAllCommentsByPostId(postId);
-    }
-
     public CommentDto getComment(Long id) {
         return commentService.getCommentById(id);
     }
 
-    public void createNewComment(CommentDto commentDto) {
+    public void createNewComment() {
+        currentComment = new CommentDto();
+    }
+
+    public void saveNewComment(CommentDto commentDto) {
         commentDto.setAuthorUrl(userService.getUserByUsername("user").getUserUrl());
         if (commentDto.getLikes() == null) {
             commentDto.setLikes(0);
@@ -87,6 +89,14 @@ public class PostController implements Serializable {
 
     public void setPostId(Long postId) {
         this.postId = postId;
+    }
+
+    public CommentDto getCurrentComment() {
+        return currentComment;
+    }
+
+    public void setCurrentComment(CommentDto currentComment) {
+        this.currentComment = currentComment;
     }
 }
 

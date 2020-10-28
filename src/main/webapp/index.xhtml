@@ -42,7 +42,7 @@
                     <ui:repeat value="#{indexController.posts}" var="post">
                         <b:row>
                             <b:column col-md="11">
-                                <b:well>
+                                <b:well styleClass="small-padding">
 
                                     <div jsf:id="divTitle"
                                          style="font-weight: bolder; font-size: larger">
@@ -61,7 +61,7 @@
                                                                      update="tLikes" ajax="true"
                                                                      actionListener="#{indexController.upvotePost(post)}">
                                                         <b:iconAwesome value="caret-up" size="2x"
-                                                                       styleClass="text-muted"/>
+                                                                       styleClass="text-muted small-line-height"/>
                                                     </b:commandButton>
                                                 </ui:fragment>
                                                 <ui:fragment rendered="false">
@@ -71,11 +71,11 @@
                                                     <h:outputText id="tLikes" value="#{post.likes}"/>
                                                 </div>
                                                 <ui:fragment rendered="true">
-                                                    <b:commandButton styleClass="buttonLink" tooltip="Downvote"
+                                                    <b:commandButton styleClass="buttonLink buttonMargin" tooltip="Downvote"
                                                                      update="tLikes" tooltipPosition="right" ajax="true"
                                                                      actionListener="#{indexController.downvotePost(post)}">
                                                         <b:iconAwesome value="caret-down" size="2x"
-                                                                       styleClass="text-muted"/>
+                                                                       styleClass="text-muted small-line-height"/>
                                                     </b:commandButton>
                                                 </ui:fragment>
                                                 <ui:fragment rendered="false">
@@ -84,7 +84,9 @@
                                             </h:form>
                                         </b:column>
                                         <b:column col-xs="11">
+                                            <div class="small-height">
                                             #{post.content}
+                                            </div>
                                         </b:column>
                                     </b:row>
                                     <b:row>
