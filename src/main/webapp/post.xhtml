@@ -6,7 +6,7 @@
       xmlns:jsf="http://xmlns.jcp.org/jsf"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:b="http://bootsfaces.net/ui"
-      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+      xmlns:p="http://primefaces.org/ui">
 
 <h:head>
     <title>TheBlog</title>
@@ -40,10 +40,10 @@
             </b:container>
         </b:jumbotron>
         <b:container id="container">
-            <h3 style="text-align: center; margin-top: 8px;">Post</h3>
+            <h3 class="text-center small-y-margin">Post</h3>
             <b:row>
-                <ui:fragment id="fragment" rendered="#{postController.post != null}">
-                    <b:well styleClass="xs-padding">
+                <ui:fragment rendered="#{postController.post != null}">
+                    <b:well styleClass="xs-padding small-y-margin">
                         <div jsf:id="divTitle"
                              style="font-weight: bolder; font-size: larger">
                             <h:outputText value="#{postController.post.title}"/>
@@ -132,6 +132,125 @@
                     </b:well>
                 </ui:fragment>
             </b:row>
+            <ui:fragment rendered="#{postController.post != null}">
+                <b:row>
+                    <b:column col-sm="12">
+                        <h3 class="text-center small-y-margin">
+                            <ui:fragment rendered="#{postController.comments.size() == 1}">
+                                1 Comment
+                            </ui:fragment>
+                            <ui:fragment rendered="#{postController.comments.size() != 1}">
+                                #{postController.comments.size()} Comments
+                            </ui:fragment>
+                        </h3>
+                    </b:column>
+                </b:row>
+                <b:row>
+                    <b:column col-sm="12" col-md="9">
+                        <ui:fragment id="fragment">
+                            <ui:repeat value="#{postController.comments}" var="comment">
+                                <b:well styleClass="xs-padding small-margin">
+                                    <b:row>
+                                        <b:column col-xs="1"
+                                                  style="align-self: center; text-align: center">
+                                            <h:form>
+                                                <ui:fragment rendered="true">
+                                                    <b:commandButton styleClass="buttonLink" tooltip="Upvote"
+                                                                     update="tLikesComments" ajax="true"
+                                                                     actionListener="#{postController.upvoteComment(comment)}">
+                                                        <b:iconAwesome value="caret-up" size="2x"
+                                                                       styleClass="text-muted small-line-height"/>
+                                                    </b:commandButton>
+                                                </ui:fragment>
+                                                <ui:fragment rendered="false">
+
+                                                </ui:fragment>
+                                                <div jsf:id="divLikes">
+                                                    <h:outputText id="tLikesComments" value="#{comment.likes}"/>
+                                                </div>
+                                                <ui:fragment rendered="true">
+                                                    <b:commandButton styleClass="buttonLink buttonMargin"
+                                                                     tooltip="Downvote"
+                                                                     update="tLikesComments" tooltipPosition="right"
+                                                                     ajax="true"
+                                                                     actionListener="#{postController.downvoteComment(comment)}">
+                                                        <b:iconAwesome value="caret-down" size="2x"
+                                                                       styleClass="text-muted small-line-height"/>
+                                                    </b:commandButton>
+                                                </ui:fragment>
+                                                <ui:fragment rendered="false">
+
+                                                </ui:fragment>
+                                            </h:form>
+                                        </b:column>
+                                        <b:column col-xs="11">
+                                            <div class="small-height">
+                                                #{postController.post.content}
+                                            </div>
+                                        </b:column>
+                                    </b:row>
+                                    <b:row>
+                                        <b:column colSm="12" colMd="9" colLg="7" offsetMd="3"
+                                                  style="display: flex">
+                                            <div class="align-center">
+                                                <ui:fragment rendered="#{!empty comment.lastUpdatedAt}">
+                                                    <div>
+                                                        <div class="small">
+                                                            <h:outputText
+                                                                    value="Created #{comment.createdAt.toString().substring(0, 10)}"/>
+                                                        </div>
+                                                        <div class="small">
+                                                            <h:outputText
+                                                                    value="Edited #{comment.lastUpdatedAt.toString().substring(0, 10)}"/>
+                                                        </div>
+                                                    </div>
+                                                </ui:fragment>
+                                                <ui:fragment rendered="#{empty comment.lastUpdatedAt}">
+                                                    <div class="small">
+                                                        <h:outputText
+                                                                value="Created #{comment.createdAt.toString().substring(0, 10)}"/>
+                                                    </div>
+                                                </ui:fragment>
+                                            </div>
+                                            <div class="align-center">
+                                                <b:iconAwesome value="user-circle" style="margin-right: 5px"
+                                                               styleClass="pull-right" size="2x"/>
+                                            </div>
+                                            <div class="align-center">
+                                                <h:outputText value="#{comment.authorname}"/>
+                                            </div>
+                                        </b:column>
+                                        <b:column colSm="12" colMd="2">
+                                            <h:form>
+                                                <b:commandButton tooltip="Edit Comment" tooltipPosition="left"
+                                                                 ajax="true" oncomplete="showModal2()" update=":form2"
+                                                                 look="primary" iconAwesome="fa-pencil" class="icon"
+                                                                 actionListener="#{postController.setCurrentComment(comment)}">
+                                                </b:commandButton>#{" "}
+                                                <b:commandButton
+                                                        tooltip="Delete Comment" tooltipPosition="right" ajax="true"
+                                                        oncomplete="showModal3()" look="primary"
+                                                        iconAwesome="fa-trash" class="icon"
+                                                        actionListener="#{postController.setCurrentComment(comment)}"/>
+                                            </h:form>
+                                        </b:column>
+                                    </b:row>
+                                </b:well>
+                            </ui:repeat>
+                        </ui:fragment>
+                    </b:column>
+                    <b:column col-sm="3" col-md="3" col-lg="2" offsetLg="1">
+                        <h3>Sort By</h3>
+                        <h:form>
+                            <p:selectOneButton value="#{postController.sortOrder}" layout="pageDirection">
+                                <f:selectItem itemLabel="Newest" itemValue="newest"/>
+                                <f:selectItem itemLabel="Best" itemValue="best"/>
+                                <p:ajax listener="#{postController.sort}" update=":fragment"/>
+                            </p:selectOneButton>
+                        </h:form>
+                    </b:column>
+                </b:row>
+            </ui:fragment>
         </b:container>
         <b:modal id="modal1" title="Create Comment" size="lg">
             <h:form id="form1">
@@ -139,6 +258,40 @@
                                  value="#{postController.currentComment.content}"/>
             </h:form>
         </b:modal>
+        <b:modal id="modal2" title="Edit Comment" size="lg">
+            <h:form id="form2">
+                <b:inputTextarea label="Inhalt:" labelStyle="width:80px;"
+                                 value="#{postController.currentComment.content}"/>
+            </h:form>
+        </b:modal>
+        <b:modal id="modal3" title="Confirmation" size="lg" closable="false">
+            <h:outputText value="Do you really want to delete this comment?"/>
+            <f:facet name="footer">
+                <h:form id="form3">
+                    <b:button value="Cancel" dismiss="modal" look="primary" styleClass="btn-modal"/>
+                    <b:commandButton value="OK" look="primary" styleClass="btn-modal"
+                                     oncomplete="dismissModal3()" ajax="true" update=":container"
+                                     actionListener="#{postController.deleteComment}"/>
+                </h:form>
+            </f:facet>
+        </b:modal>
     </f:view>
+    <script>
+        function showModal1() {
+            $('#modal1').modal('show');
+        }
+
+        function showModal2() {
+            $('#modal2').modal('show');
+        }
+
+        function showModal3() {
+            $('#modal3').modal('show');
+        }
+
+        function dismissModal3() {
+            $('#modal3').modal('hide');
+        }
+    </script>
 </h:body>
 </html>

@@ -8,5 +8,5 @@ import com.gregorhue.theblog.dto.CategoryDto;
  * Created by gregorhue on 06.10.2020.
  */
 public interface CategoryService {
-	List<CategoryDto> getAll();
+	List<CategoryDto> getAllCategories();
 }

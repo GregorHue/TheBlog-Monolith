@@ -45,7 +45,7 @@ button.buttonLink:focus {
 }
 
 .well.xs-padding {
-    padding: 10px 19px;
+    padding: 12px 19px;
 }
 
 i.small-line-height {
@@ -90,4 +90,19 @@ hr.small-height {
 
 div.small-height {
     margin: 10px 0px;
+}
+
+h3.small-y-margin {
+    margin-top: 5px;
+    margin-bottom: 4px;
+}
+
+.well.small-y-margin {
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.well.small-margin {
+    margin-bottom: 12px;
+    margin-top: 12px;
 }

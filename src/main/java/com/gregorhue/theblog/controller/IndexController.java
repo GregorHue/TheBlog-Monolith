@@ -47,16 +47,8 @@ public class IndexController implements Serializable {
 	
 	@PostConstruct
 	public void onInit() {
-		posts = getAllPosts();
-		categories = getAllCategories();
-	}
-	
-	public List<CategoryDto> getAllCategories() {
-		return categoryService.getAll();
-	}
-
-	public List<PostDto> getAllPosts() {	
-		return postService.getAllPosts();
+		posts = postService.getAllPosts();
+		categories = categoryService.getAllCategories();
 	}
 	
 	public List<PostDto> getAllPostsByAuthorId(Long authorId) {	
@@ -91,14 +83,14 @@ public class IndexController implements Serializable {
 		Long postId = Long.parseLong(postDto.getPostUrl().split("=")[1]);
 		postDto.setOption(Vote.UPVOTE);
 		patchPost(postId, postDto);
-		posts = getAllPosts();
+		posts = postService.getAllPosts();
 	}
 
 	public void downvotePost(PostDto postDto) {
 		Long postId = Long.parseLong(postDto.getPostUrl().split("=")[1]);
 		postDto.setOption(Vote.DOWNVOTE);
 		patchPost(postId, postDto);
-		posts = getAllPosts();
+		posts = postService.getAllPosts();
 	}
 
 	public void deletePost() {

@@ -22,7 +22,7 @@ public class CategoryServiceImpl implements CategoryService {
 	private CategoryMapper categoryMapper;
 
 	@Override
-	public List<CategoryDto> getAll() {
+	public List<CategoryDto> getAllCategories() {
 		return categoryMapper.toCategoryDtos(categoryRepository.findAll());
 	}
 }
