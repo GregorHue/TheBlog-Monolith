@@ -20,25 +20,7 @@
 
 <h:body>
     <f:view>
-        <b:navBar brand="Brand" brandHref="#" styleClass="noMargin">
-            <b:navbarLinks>
-                <b:navLink value="Home" href="#"/>
-                <b:navLink value="Link" href="#"/>
-                <b:navLink value="Link" href="#"/>
-            </b:navbarLinks>
-        </b:navBar>
-        <b:jumbotron>
-            <b:container>
-                <b:row>
-                    <b:column col-xs="12" col-sm="10">
-                        <h1>TheBlog</h1>
-                        <p style="margin-left: 11px">Post, Comment and Vote!</p>
-                        <hr style="border-color: rgba(51, 51, 51, 0.6)"/>
-                        <h4 style="margin-left: 12px">A demo blog</h4>
-                    </b:column>
-                </b:row>
-            </b:container>
-        </b:jumbotron>
+        <ui:include src="./header.xhtml" />
         <b:container id="container">
             <h3 class="text-center small-y-margin">Post</h3>
             <b:row>
@@ -190,7 +172,21 @@
                                         </b:column>
                                     </b:row>
                                     <b:row>
-                                        <b:column colSm="12" colMd="9" colLg="7" offsetMd="3"
+                                        <b:column colSm="12" colMd="4">
+                                            <h:form>
+                                                <b:commandButton tooltip="Edit Comment" tooltipPosition="left"
+                                                                 ajax="true" oncomplete="showModal2()" update=":form2"
+                                                                 look="primary" iconAwesome="fa-pencil" class="icon"
+                                                                 actionListener="#{postController.setCurrentComment(comment)}">
+                                                </b:commandButton>#{" "}
+                                                <b:commandButton
+                                                        tooltip="Delete Comment" tooltipPosition="right" ajax="true"
+                                                        oncomplete="showModal3()" look="primary"
+                                                        iconAwesome="fa-trash" class="icon"
+                                                        actionListener="#{postController.setCurrentComment(comment)}"/>
+                                            </h:form>
+                                        </b:column>
+                                        <b:column colSm="12" colMd="8"
                                                   style="display: flex">
                                             <div class="align-center">
                                                 <ui:fragment rendered="#{!empty comment.lastUpdatedAt}">
@@ -219,20 +215,6 @@
                                             <div class="align-center">
                                                 <h:outputText value="#{comment.authorname}"/>
                                             </div>
-                                        </b:column>
-                                        <b:column colSm="12" colMd="2">
-                                            <h:form>
-                                                <b:commandButton tooltip="Edit Comment" tooltipPosition="left"
-                                                                 ajax="true" oncomplete="showModal2()" update=":form2"
-                                                                 look="primary" iconAwesome="fa-pencil" class="icon"
-                                                                 actionListener="#{postController.setCurrentComment(comment)}">
-                                                </b:commandButton>#{" "}
-                                                <b:commandButton
-                                                        tooltip="Delete Comment" tooltipPosition="right" ajax="true"
-                                                        oncomplete="showModal3()" look="primary"
-                                                        iconAwesome="fa-trash" class="icon"
-                                                        actionListener="#{postController.setCurrentComment(comment)}"/>
-                                            </h:form>
                                         </b:column>
                                     </b:row>
                                 </b:well>
