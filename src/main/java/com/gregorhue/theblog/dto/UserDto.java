@@ -21,6 +21,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @Dependent
 public class UserDto {
+
+	private Long id;
 	
 	private LocalDateTime createdAt;	
 	private LocalDateTime lastUpdatedAt;

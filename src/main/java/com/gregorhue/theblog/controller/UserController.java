@@ -1,61 +1,81 @@
 package com.gregorhue.theblog.controller;
 
-
-import java.io.Serializable;
-import java.util.List;
-
-import javax.annotation.PostConstruct;
-import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
-
 import com.gregorhue.theblog.dto.UserDto;
 import com.gregorhue.theblog.service.UserService;
 
+import javax.annotation.PostConstruct;
 
+import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+import java.io.Serializable;
+import java.util.List;
+import java.util.stream.Collectors;
 
-/**
- * Created by gregorhue on 09.10.2020.
- */
 @Named
 @ViewScoped
 public class UserController implements Serializable {
-
-	private static final long serialVersionUID = -2390884305985530004L;
 
 	@Inject
 	private UserService userService;
 
 	private List<UserDto> users;
-	
+	private UserDto currentUser;
+
 	@PostConstruct
 	public void onInit() {
-		users = getAllUsers();
+		users = userService.getAllUsers().stream().filter(user -> user.getDeletedTs() == null).collect(Collectors.toList());
 	}
 
-	public List<UserDto> getAllUsers() {
-		return userService.getAllUsers();
+	private boolean validate(String string) {
+		return string != null && !string.equals("");
 	}
 
-	public UserDto getUser(Long id) {
-		return userService.getUserById(id);
+	public String getCompleteAddress(UserDto user) {
+		String address = "";
+		if (this.validate(user.getHouseNumber().toString())) {
+			address += user.getHouseNumber();
+		}
+		if (this.validate(user.getStreet())) {
+			if (this.validate(address)) {
+				address += ", ";
+			}
+			address += user.getStreet();
+		}
+		if (this.validate(user.getCity())) {
+			if (this.validate(address)) {
+				address += ", ";
+			}
+			address += user.getCity();
+		}
+		if (this.validate(user.getPostalCode())) {
+			if (this.validate(address)) {
+				address += ", ";
+			}
+			address += user.getPostalCode();
+		}
+		return address;
 	}
 
-	public void createNewUser(UserDto userDto) {
-		userService.saveNewUser(userDto);
-	}
-	
-	public void updateUser(Long id, UserDto userDto) {	
-		userService.saveUser(id, userDto);
-	}
-
-	public void deleteUser(Long id) {
-		userService.deleteUserById(id);
+	public void deleteUser() {
+		userService.deleteUserById(currentUser.getId());
+		users.remove(currentUser);
+		currentUser = null;
 	}
 
 	public List<UserDto> getUsers() {
 		return users;
 	}
-	
-}
 
+	public void setUsers(List<UserDto> users) {
+		this.users = users;
+	}
+
+	public UserDto getCurrentUser() {
+		return currentUser;
+	}
+
+	public void setCurrentUser(UserDto currentUser) {
+		this.currentUser = currentUser;
+	}
+}
