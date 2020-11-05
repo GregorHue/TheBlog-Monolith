@@ -16,6 +16,8 @@ import java.util.stream.Collectors;
 @ViewScoped
 public class UserController implements Serializable {
 
+	private static final long serialVersionUID = -4309206576313570614L;
+
 	@Inject
 	private UserService userService;
 
