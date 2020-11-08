@@ -2,8 +2,6 @@ package com.gregorhue.theblog.controller;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.stream.Collectors;
-
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -66,9 +64,10 @@ public class PostController implements Serializable {
         commentService.saveNewComment(commentDto);
     }
 
-    public void updateComment(Long id, CommentDto commentDto) {
-        Long userId = Long.parseLong(commentDto.getAuthorUrl().split("=")[1]);
-        commentService.saveComment(id, commentDto);
+    public void updateComment() {
+        Long commentId = Long.parseLong(currentComment.getCommentUrl().split("=")[1]);
+        commentService.updateComment(commentId, currentComment);
+        comments = commentService.getAllCommentsByPostId(postId);
     }
 
     private void patchComment(Long id, CommentDto commentDto) {

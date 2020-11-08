@@ -3,9 +3,6 @@ package com.gregorhue.theblog.repository;
 import java.io.Serializable;
 
 import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-
 import com.gregorhue.theblog.model.Category;
 
 /**

@@ -2,7 +2,6 @@ package com.gregorhue.theblog.controller;
 
 import com.gregorhue.theblog.dto.CategoryDto;
 import com.gregorhue.theblog.dto.PostDto;
-import com.gregorhue.theblog.dto.UserDto;
 import com.gregorhue.theblog.model.Vote;
 import com.gregorhue.theblog.service.CategoryService;
 import com.gregorhue.theblog.service.PostService;
@@ -69,9 +68,7 @@ public class IndexController implements Serializable {
 	}
 
 	public void updatePost(Long id, PostDto postDto) {
-		Long userId = Long.parseLong(postDto.getAuthorUrl().split("=")[1]);
-		UserDto userDto = userService.getUserById(userId);	
-		postService.savePost(id, postDto);
+		postService.updatePost(id, postDto);
 	}
 
 	

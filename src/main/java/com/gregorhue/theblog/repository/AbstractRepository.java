@@ -35,12 +35,12 @@ public abstract class AbstractRepository<T extends Serializable> {
         return entityManager.createQuery(criteriaQuery).getResultList();
     }
 
-    public void save(T entity) {
-        if (entityManager.contains(entity)) {
-            entityManager.merge(entity);
-        } else {
+    public void saveNewEntity(T entity) {   
             entityManager.persist(entity);
-        }
+    }
+    
+    public void updateEntry(T entity) {
+    	entityManager.merge(entity);
     }
 
     public void delete(T entity) {

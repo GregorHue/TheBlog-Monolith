@@ -17,7 +17,7 @@ public interface PostService {
 
 	void saveNewPost(PostDto postDto);
 
-	void savePost(Long id, PostDto postDto);
+	void updatePost(Long id, PostDto postDto);
 
     void patchPost(Long id, PostDto postDto);
 

@@ -60,14 +60,17 @@ public class PostServiceImpl implements PostService {
 		Post post = postMapper.toPost(postDto);
 		post.setCreatedAt(LocalDateTime.now());
 		processPostDto(postDto, post);
+		postRepository.saveNewEntity(post);
 	}
 
 	@Override
-	public void savePost(Long id, PostDto postDto) {
+	public void updatePost(Long id, PostDto postDto) {
 		Post post = postMapper.toPost(postDto);
 		post.setLastUpdatedAt(LocalDateTime.now());
 		post.setId(id);
 		processPostDto(postDto, post);
+		postRepository.updateEntry(post);
+		
 	}
 
 	private void processPostDto(PostDto postDto, Post post) {
@@ -76,9 +79,7 @@ public class PostServiceImpl implements PostService {
 		post.setAuthor(author);
 		Category category = categoryRepository.findByName(postDto.getCategory().getName());
 		post.setCategory(category);
-		postRepository.save(post);
 		post.setAuthorname(post.getAuthor().getUsername());
-		postMapper.toPostDto(post);
 	}
 
 	@Override
@@ -90,7 +91,7 @@ public class PostServiceImpl implements PostService {
 			} else {
 				post.setLikes(post.getLikes() - 1);
 			}
-			postRepository.save(post);
+			postRepository.updateEntry(post);
 		}
 
 	}

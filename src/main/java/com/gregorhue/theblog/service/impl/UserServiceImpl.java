@@ -48,11 +48,11 @@ public class UserServiceImpl implements UserService {
 		User user = userMapper.toUser(userDto);
 		user.setPassword(hashAlgorithm.generate(userDto.getPassword().toCharArray()));
 		user.setCreatedAt(LocalDateTime.now());
-		userRepository.save(user);
+		userRepository.saveNewEntity(user);
 	}
 
 	@Override
-	public void saveUser(Long id, UserDto userDto) {
+	public void updateUser(Long id, UserDto userDto) {
 		User user = userMapper.toUser(userDto);
 		if (userDto.getPassword() != null) {
 			user.setPassword(hashAlgorithm.generate(userDto.getPassword().toCharArray()));
@@ -63,14 +63,14 @@ public class UserServiceImpl implements UserService {
 		}
 		user.setLastUpdatedAt(LocalDateTime.now());
 		user.setId(id);
-		userRepository.save(user);
+		userRepository.updateEntry(user);
 	}
 
 	@Override
 	public void deleteUserById(Long id) {
 		User user = userRepository.findOne(id);
 		user.setDeletedTs(LocalDateTime.now());
-		userRepository.save(user);
+		userRepository.updateEntry(user);
 	}
 
 }

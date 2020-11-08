@@ -53,14 +53,16 @@ public class CommentServiceImpl implements CommentService {
 		Comment comment = commentMapper.toComment(commentDto);
 		comment.setCreatedAt(LocalDateTime.now());
 		processCommentDto(commentDto, comment);
+		commentRepository.saveNewEntity(comment);
 	}
 
 	@Override
-	public void saveComment(Long id, CommentDto commentDto) {
+	public void updateComment(Long id, CommentDto commentDto) {
 		Comment comment = commentMapper.toComment(commentDto);
 		comment.setLastUpdatedAt(LocalDateTime.now());
 		comment.setId(id);
 		processCommentDto(commentDto, comment);
+		commentRepository.updateEntry(comment);
 	}
 
 	private void processCommentDto(CommentDto commentDto, Comment comment) {
@@ -71,7 +73,6 @@ public class CommentServiceImpl implements CommentService {
 		User author = userRepository.findOne(authorId);
 		comment.setAuthor(author);
 		comment.setAuthorname(comment.getAuthor().getUsername());
-		commentRepository.save(comment);
 	}
 
 	@Override
@@ -83,7 +84,7 @@ public class CommentServiceImpl implements CommentService {
 			} else {
 				comment.setLikes(comment.getLikes() - 1);
 			}
-			commentRepository.save(comment);
+			commentRepository.updateEntry(comment);
 			commentMapper.toCommentDto(comment);
 		}			
 	}
