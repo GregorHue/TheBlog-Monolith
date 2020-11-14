@@ -56,22 +56,23 @@ public class PostController implements Serializable {
         currentComment = new CommentDto();
     }
 
-    public void saveNewComment(CommentDto commentDto) {
-        commentDto.setAuthorUrl(userService.getUserByUsername("user").getUserUrl());
-        if (commentDto.getLikes() == null) {
-            commentDto.setLikes(0);
+    public void saveNewComment() {
+    	currentComment.setPostUrl(post.getPostUrl());
+        currentComment.setAuthorUrl(userService.getUserByUsername("user").getUserUrl());
+        if (currentComment.getLikes() == null) {
+            currentComment.setLikes(0);
         }
-        commentService.saveNewComment(commentDto);
+        commentService.saveNewComment(currentComment);
     }
 
     public void updateComment() {
         Long commentId = Long.parseLong(currentComment.getCommentUrl().split("=")[1]);
         commentService.updateComment(commentId, currentComment);
-        comments = commentService.getAllCommentsByPostId(postId);
     }
 
     private void patchComment(Long id, CommentDto commentDto) {
         commentService.patchComment(id, commentDto);
+        comments = commentService.getAllCommentsByPostId(postId);
     }
 
     public void upvoteComment(CommentDto commentDto) {
@@ -84,7 +85,6 @@ public class PostController implements Serializable {
         Long commentId = Long.parseLong(commentDto.getCommentUrl().split("=")[1]);
         commentDto.setOption(Vote.DOWNVOTE);
         patchComment(commentId, commentDto);
-        comments = commentService.getAllCommentsByPostId(postId);
     }
 
     public void deleteComment() {
