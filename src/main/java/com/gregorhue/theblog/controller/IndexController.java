@@ -39,6 +39,7 @@ public class IndexController implements Serializable {
 	private PostDto currentPost;
 	
 	private List<CategoryDto> categories;
+	private List<CategoryDto> cbCategories;
 
 	private String sortOrder = "newest";
 
@@ -48,6 +49,7 @@ public class IndexController implements Serializable {
 	public void onInit() {
 		posts = postService.getAllPosts();
 		categories = categoryService.getAllCategories();
+		cbCategories = categories.stream().filter(c -> !c.getName().equals("All")).collect(Collectors.toList());
 	}
 	
 	public List<PostDto> getAllPostsByAuthorId(Long authorId) {	
@@ -57,14 +59,19 @@ public class IndexController implements Serializable {
 	public PostDto getPost( Long id) {
 		return postService.getPostById(id);
 	}
+	
+	public void createNewPost() {
+		currentPost = new PostDto();
+		currentPost.setCategory(CategoryDto.builder().build());
+	}
 
-
-	public void createNewPost(PostDto postDto) {
-		postDto.setAuthorUrl(userService.getUserByUsername("user").getUserUrl());
-		if (postDto.getLikes() == null) {
-			postDto.setLikes(0);
+	public void saveNewPost() {
+		currentPost.setAuthorUrl(userService.getUserByUsername("user").getUserUrl());
+		if (currentPost.getLikes() == null) {
+			currentPost.setLikes(0);
 		}
-		postService.saveNewPost(postDto);
+		postService.saveNewPost(currentPost);
+		posts = postService.getAllPosts();
 	}
 
 	public void updatePost() {
@@ -129,6 +136,14 @@ public class IndexController implements Serializable {
 
 	public void setFilterOrder(String filterOrder) {
 		this.filterOrder = filterOrder;
+	}
+
+	public List<CategoryDto> getCbCategories() {
+		return cbCategories;
+	}
+
+	public void setCbCategories(List<CategoryDto> cbCategories) {
+		this.cbCategories = cbCategories;
 	}
 
 	public void sort() {
