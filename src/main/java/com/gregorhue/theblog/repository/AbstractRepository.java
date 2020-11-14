@@ -39,8 +39,8 @@ public abstract class AbstractRepository<T extends Serializable> {
             entityManager.persist(entity);
     }
     
-    public void updateEntry(T entity) {
-    	entityManager.merge(entity);
+    public T updateEntry(T entity) {
+    	return entityManager.merge(entity);
     }
 
     public void delete(T entity) {

@@ -155,6 +155,13 @@
                              value="#{indexController.currentPost.title}"/>
                 <b:inputTextarea label="Inhalt:" labelStyle="width:80px;"
                                  value="#{indexController.currentPost.content}"/>
+                        				<div style="display: flex; justify-content: flex-end;">
+					<b:button value="Cancel" dismiss="modal" look="primary"
+						styleClass="btn-modal" style="margin-right: 8px;" />
+					<b:commandButton value="OK" look="primary" styleClass="btn-modal"
+						oncomplete="dismissModal1()" ajax="true" update=":container"
+						actionListener="#{indexController.updatePost}" />
+				</div>
             </h:form>
         </b:modal>
         <b:modal id="modal2" title="Confirmation" size="lg" closable="false">
@@ -176,6 +183,10 @@
 
         function showModal2() {
             $('#modal2').modal('show');
+        }
+        
+        function dismissModal1() {
+            $('#modal1').modal('hide');
         }
 
         function dismissModal2() {

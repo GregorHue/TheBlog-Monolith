@@ -67,8 +67,11 @@ public class IndexController implements Serializable {
 		postService.saveNewPost(postDto);
 	}
 
-	public void updatePost(Long id, PostDto postDto) {
-		postService.updatePost(id, postDto);
+	public void updatePost() {
+		Long postId = Long.parseLong(currentPost.getPostUrl().split("=")[1]);
+		PostDto updatedPostDto = postService.updatePost(postId, currentPost);
+		posts = posts.stream().filter(p -> !p.getPostUrl().equals(currentPost.getPostUrl())).collect(Collectors.toList());
+		posts.add(updatedPostDto);
 	}
 
 	

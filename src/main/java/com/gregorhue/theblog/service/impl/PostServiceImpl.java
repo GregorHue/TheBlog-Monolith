@@ -64,12 +64,12 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public void updatePost(Long id, PostDto postDto) {
+	public PostDto updatePost(Long id, PostDto postDto) {
 		Post post = postMapper.toPost(postDto);
 		post.setLastUpdatedAt(LocalDateTime.now());
 		post.setId(id);
 		processPostDto(postDto, post);
-		postRepository.updateEntry(post);
+		return postMapper.toPostDto(postRepository.updateEntry(post));
 		
 	}
 
