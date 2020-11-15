@@ -2,6 +2,7 @@ package com.gregorhue.theblog.controller;
 
 import com.gregorhue.theblog.dto.CategoryDto;
 import com.gregorhue.theblog.dto.PostDto;
+import com.gregorhue.theblog.helper.SortAndFilterHelper;
 import com.gregorhue.theblog.model.Vote;
 import com.gregorhue.theblog.service.CategoryService;
 import com.gregorhue.theblog.service.PostService;
@@ -43,11 +44,12 @@ public class IndexController implements Serializable {
 
 	private String sortOrder = "newest";
 
-	private String filterOrder = "All";
+	private String filter = "All";
 	
 	@PostConstruct
 	public void onInit() {
 		posts = postService.getAllPosts();
+		posts = SortAndFilterHelper.sort(posts, sortOrder);
 		categories = categoryService.getAllCategories();
 		cbCategories = categories.stream().filter(c -> !c.getName().equals("All")).collect(Collectors.toList());
 	}
@@ -72,6 +74,7 @@ public class IndexController implements Serializable {
 		}
 		postService.saveNewPost(currentPost);
 		posts = postService.getAllPosts();
+		posts = SortAndFilterHelper.sort(posts, sortOrder);
 	}
 
 	public void updatePost() {
@@ -79,6 +82,7 @@ public class IndexController implements Serializable {
 		PostDto updatedPostDto = postService.updatePost(postId, currentPost);
 		posts = posts.stream().filter(p -> !p.getPostUrl().equals(currentPost.getPostUrl())).collect(Collectors.toList());
 		posts.add(updatedPostDto);
+		posts = SortAndFilterHelper.sort(posts, sortOrder);
 	}
 
 	
@@ -91,6 +95,7 @@ public class IndexController implements Serializable {
 		postDto.setOption(Vote.UPVOTE);
 		patchPost(postId, postDto);
 		posts = postService.getAllPosts();
+		posts = SortAndFilterHelper.sort(posts, sortOrder);
 	}
 
 	public void downvotePost(PostDto postDto) {
@@ -98,12 +103,14 @@ public class IndexController implements Serializable {
 		postDto.setOption(Vote.DOWNVOTE);
 		patchPost(postId, postDto);
 		posts = postService.getAllPosts();
+		posts = SortAndFilterHelper.sort(posts, sortOrder);
 	}
 
 	public void deletePost() {
 		Long postId = Long.parseLong(currentPost.getPostUrl().split("=")[1]);
 		postService.deletePostById(postId);
 		posts = posts.stream().filter(post -> !post.getPostUrl().equals(currentPost.getPostUrl())).collect(Collectors.toList());
+		posts = SortAndFilterHelper.sort(posts, sortOrder);
 	}
 
 	public List<PostDto> getPosts() {
@@ -131,11 +138,11 @@ public class IndexController implements Serializable {
 	}
 
 	public String getFilterOrder() {
-		return filterOrder;
+		return filter;
 	}
 
 	public void setFilterOrder(String filterOrder) {
-		this.filterOrder = filterOrder;
+		this.filter = filterOrder;
 	}
 
 	public List<CategoryDto> getCbCategories() {
@@ -147,11 +154,11 @@ public class IndexController implements Serializable {
 	}
 
 	public void sort() {
-		System.out.println(sortOrder);
+		posts = SortAndFilterHelper.sort(posts, sortOrder);
 	}
 
 	public void filter() {
-		System.out.println(filterOrder);
+		System.out.println(filter);
 	}
 
 }

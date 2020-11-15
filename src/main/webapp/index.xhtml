@@ -142,7 +142,7 @@
 						<f:selectItems value="#{indexController.categories}"
 							var="category" itemLabel="#{category.name}"
 							itemValue="#{category.name}" />
-						<p:ajax listener="#{indexController.filter}" update=":fragment" />
+						<p:ajax listener="#{indexController.filter}" update=":container" />
 					</p:selectOneButton>
 				</h:form>
 				<hr />
@@ -152,7 +152,7 @@
 						layout="pageDirection">
 						<f:selectItem itemLabel="Newest" itemValue="newest" />
 						<f:selectItem itemLabel="Best" itemValue="best" />
-						<p:ajax listener="#{indexController.sort}" update=":fragment" />
+						<p:ajax listener="#{indexController.sort}" update=":container" />
 					</p:selectOneButton>
 				</h:form>
 			</b:column>
