@@ -142,7 +142,7 @@
 											<h:form>
 												<ui:fragment rendered="true">
 													<b:commandButton styleClass="buttonLink" tooltip="Upvote"
-														update="tLikesComments" ajax="true"
+														update="container" ajax="true"
 														actionListener="#{postController.upvoteComment(comment)}">
 														<b:iconAwesome value="caret-up" size="2x"
 															styleClass="text-muted small-line-height" />
@@ -156,7 +156,7 @@
 												</div>
 												<ui:fragment rendered="true">
 													<b:commandButton styleClass="buttonLink buttonMargin"
-														tooltip="Downvote" update="tLikesComments"
+														tooltip="Downvote" update="container"
 														tooltipPosition="right" ajax="true"
 														actionListener="#{postController.downvoteComment(comment)}">
 														<b:iconAwesome value="caret-down" size="2x"

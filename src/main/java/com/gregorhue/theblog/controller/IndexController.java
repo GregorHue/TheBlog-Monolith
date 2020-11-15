@@ -36,6 +36,7 @@ public class IndexController implements Serializable {
 	private CategoryService categoryService;
 	
 	private List<PostDto> posts;
+	private List<PostDto> filteredAndSortedPosts;
 
 	private PostDto currentPost;
 	
@@ -49,13 +50,9 @@ public class IndexController implements Serializable {
 	@PostConstruct
 	public void onInit() {
 		posts = postService.getAllPosts();
-		posts = SortAndFilterHelper.sort(posts, sortOrder);
+		filteredAndSortedPosts = SortAndFilterHelper.sortAndFilter(posts, sortOrder, filter);
 		categories = categoryService.getAllCategories();
 		cbCategories = categories.stream().filter(c -> !c.getName().equals("All")).collect(Collectors.toList());
-	}
-	
-	public List<PostDto> getAllPostsByAuthorId(Long authorId) {	
-		return postService.getAllPostsByAuthorId(authorId);
 	}
 
 	public PostDto getPost( Long id) {
@@ -74,15 +71,14 @@ public class IndexController implements Serializable {
 		}
 		postService.saveNewPost(currentPost);
 		posts = postService.getAllPosts();
-		posts = SortAndFilterHelper.sort(posts, sortOrder);
+		filteredAndSortedPosts = SortAndFilterHelper.sortAndFilter(posts, sortOrder, filter);
 	}
 
 	public void updatePost() {
 		Long postId = Long.parseLong(currentPost.getPostUrl().split("=")[1]);
 		PostDto updatedPostDto = postService.updatePost(postId, currentPost);
-		posts = posts.stream().filter(p -> !p.getPostUrl().equals(currentPost.getPostUrl())).collect(Collectors.toList());
-		posts.add(updatedPostDto);
-		posts = SortAndFilterHelper.sort(posts, sortOrder);
+		posts = postService.getAllPosts();
+		filteredAndSortedPosts = SortAndFilterHelper.sortAndFilter(posts, sortOrder, filter);
 	}
 
 	
@@ -95,7 +91,7 @@ public class IndexController implements Serializable {
 		postDto.setOption(Vote.UPVOTE);
 		patchPost(postId, postDto);
 		posts = postService.getAllPosts();
-		posts = SortAndFilterHelper.sort(posts, sortOrder);
+		filteredAndSortedPosts = SortAndFilterHelper.sortAndFilter(posts, sortOrder, filter);
 	}
 
 	public void downvotePost(PostDto postDto) {
@@ -103,14 +99,14 @@ public class IndexController implements Serializable {
 		postDto.setOption(Vote.DOWNVOTE);
 		patchPost(postId, postDto);
 		posts = postService.getAllPosts();
-		posts = SortAndFilterHelper.sort(posts, sortOrder);
+		filteredAndSortedPosts = SortAndFilterHelper.sortAndFilter(posts, sortOrder, filter);
 	}
 
 	public void deletePost() {
 		Long postId = Long.parseLong(currentPost.getPostUrl().split("=")[1]);
 		postService.deletePostById(postId);
-		posts = posts.stream().filter(post -> !post.getPostUrl().equals(currentPost.getPostUrl())).collect(Collectors.toList());
-		posts = SortAndFilterHelper.sort(posts, sortOrder);
+		posts = postService.getAllPosts();
+		filteredAndSortedPosts = SortAndFilterHelper.sortAndFilter(posts, sortOrder, filter);
 	}
 
 	public List<PostDto> getPosts() {
@@ -153,12 +149,16 @@ public class IndexController implements Serializable {
 		this.cbCategories = cbCategories;
 	}
 
+	public List<PostDto> getFilteredAndSortedPosts() {
+		return filteredAndSortedPosts;
+	}
+
 	public void sort() {
-		posts = SortAndFilterHelper.sort(posts, sortOrder);
+		filteredAndSortedPosts = SortAndFilterHelper.sortAndFilter(posts, sortOrder, filter);
 	}
 
 	public void filter() {
-		System.out.println(filter);
+		filteredAndSortedPosts = SortAndFilterHelper.sortAndFilter(posts, sortOrder, filter);
 	}
 
 }

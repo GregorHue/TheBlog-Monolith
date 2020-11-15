@@ -28,7 +28,7 @@
 			<b:column col-sm="9" col-md="9" col-lg="10">
 				<ui:fragment id="fragment"
 					rendered="#{indexController.posts != null and indexController.posts.size() > 0}">
-					<ui:repeat value="#{indexController.posts}" var="post">
+					<ui:repeat value="#{indexController.filteredAndSortedPosts}" var="post">
 						<b:row>
 							<b:column col-md="11">
 								<b:well styleClass="small-padding">
@@ -47,7 +47,7 @@
 											<h:form>
 												<ui:fragment rendered="true">
 													<b:commandButton styleClass="buttonLink" tooltip="Upvote"
-														update="tLikes" ajax="true"
+														update="container" ajax="true"
 														actionListener="#{indexController.upvotePost(post)}">
 														<b:iconAwesome value="caret-up" size="2x"
 															styleClass="text-muted small-line-height" />
@@ -61,7 +61,7 @@
 												</div>
 												<ui:fragment rendered="true">
 													<b:commandButton styleClass="buttonLink buttonMargin"
-														tooltip="Downvote" update="tLikes" tooltipPosition="right"
+														tooltip="Downvote" update="container" tooltipPosition="right"
 														ajax="true"
 														actionListener="#{indexController.downvotePost(post)}">
 														<b:iconAwesome value="caret-down" size="2x"
