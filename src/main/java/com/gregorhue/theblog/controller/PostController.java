@@ -14,10 +14,18 @@ import com.gregorhue.theblog.service.CommentService;
 import com.gregorhue.theblog.service.PostService;
 import com.gregorhue.theblog.service.UserService;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 /**
  * Created by gregorhue on 09.10.2020.
  */
-
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Named
 @ViewScoped
 public class PostController implements Serializable {
@@ -91,42 +99,6 @@ public class PostController implements Serializable {
     public void deleteComment() {
         Long commentId = Long.parseLong(currentComment.getCommentUrl().split("=")[1]);
         commentService.deleteCommentById(commentId);
-    }
-
-    public List<CommentDto> getComments() {
-        return comments;
-    }
-
-    public PostDto getPost() {
-        return post;
-    }
-
-    public Long getPostId() {
-        return postId;
-    }
-
-    public void setPostId(Long postId) {
-        this.postId = postId;
-    }
-
-    public CommentDto getCurrentComment() {
-        return currentComment;
-    }
-
-    public void setCurrentComment(CommentDto currentComment) {
-        this.currentComment = currentComment;
-    }
-
-    public String getSortOrder() {
-        return sortOrder;
-    }
-
-    public List<CommentDto> getSortedComments() {
-		return sortedComments;
-	}
-
-	public void setSortOrder(String sortOrder) {
-        this.sortOrder = sortOrder;
     }
 
     public void sort() {

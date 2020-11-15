@@ -1,7 +1,6 @@
 package com.gregorhue.theblog.controller;
 
 import java.io.Serializable;
-
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -9,9 +8,19 @@ import javax.inject.Named;
 import com.gregorhue.theblog.dto.UserDto;
 import com.gregorhue.theblog.service.UserService;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 /**
  * Created by gregorhue on 04.11.2020.
  */
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Named
 @ViewScoped
 public class ProfileController implements Serializable {
@@ -28,20 +37,4 @@ public class ProfileController implements Serializable {
 		currentUser = userService.getUserById((long) currentUserId);
 	}
 
-	public UserDto getCurrentUser() {
-		return currentUser;
-	}
-
-	public void setCurrentUser(UserDto currentUser) {
-		this.currentUser = currentUser;
-	}
-
-	public int getCurrentUserId() {
-		return currentUserId;
-	}
-
-	public void setCurrentUserId(int currentUserId) {
-		this.currentUserId = currentUserId;
-	}
-	
 }

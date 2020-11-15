@@ -8,6 +8,11 @@ import com.gregorhue.theblog.service.CategoryService;
 import com.gregorhue.theblog.service.PostService;
 import com.gregorhue.theblog.service.UserService;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -20,6 +25,10 @@ import java.util.stream.Collectors;
  * Created by gregorhue on 09.10.2020.
  */
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Named
 @ViewScoped
 public class IndexController implements Serializable {
@@ -80,7 +89,6 @@ public class IndexController implements Serializable {
 		posts = postService.getAllPosts();
 		filteredAndSortedPosts = SortAndFilterHelper.sortAndFilter(posts, sortOrder, filter);
 	}
-
 	
 	private void patchPost(Long id, PostDto postDto) {
 		postService.patchPost(id, postDto);		
@@ -107,50 +115,6 @@ public class IndexController implements Serializable {
 		postService.deletePostById(postId);
 		posts = postService.getAllPosts();
 		filteredAndSortedPosts = SortAndFilterHelper.sortAndFilter(posts, sortOrder, filter);
-	}
-
-	public List<PostDto> getPosts() {
-		return posts;
-	}
-
-	public PostDto getCurrentPost() {
-		return currentPost;
-	}
-
-	public void setCurrentPost(PostDto currentPost) {
-		this.currentPost = currentPost;
-	}
-
-	public List<CategoryDto> getCategories() {
-		return categories;
-	}
-
-	public String getSortOrder() {
-		return sortOrder;
-	}
-
-	public void setSortOrder(String sortOrder) {
-		this.sortOrder = sortOrder;
-	}
-
-	public String getFilterOrder() {
-		return filter;
-	}
-
-	public void setFilterOrder(String filterOrder) {
-		this.filter = filterOrder;
-	}
-
-	public List<CategoryDto> getCbCategories() {
-		return cbCategories;
-	}
-
-	public void setCbCategories(List<CategoryDto> cbCategories) {
-		this.cbCategories = cbCategories;
-	}
-
-	public List<PostDto> getFilteredAndSortedPosts() {
-		return filteredAndSortedPosts;
 	}
 
 	public void sort() {

@@ -3,6 +3,11 @@ package com.gregorhue.theblog.controller;
 import com.gregorhue.theblog.dto.UserDto;
 import com.gregorhue.theblog.service.UserService;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.annotation.PostConstruct;
 
 import javax.faces.view.ViewScoped;
@@ -12,6 +17,14 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Created by gregorhue on 09.10.2020.
+ */
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Named
 @ViewScoped
 public class UserController implements Serializable {
@@ -65,19 +78,4 @@ public class UserController implements Serializable {
 		currentUser = null;
 	}
 
-	public List<UserDto> getUsers() {
-		return users;
-	}
-
-	public void setUsers(List<UserDto> users) {
-		this.users = users;
-	}
-
-	public UserDto getCurrentUser() {
-		return currentUser;
-	}
-
-	public void setCurrentUser(UserDto currentUser) {
-		this.currentUser = currentUser;
-	}
 }
