@@ -229,7 +229,7 @@
 								layout="pageDirection">
 								<f:selectItem itemLabel="Newest" itemValue="newest" />
 								<f:selectItem itemLabel="Best" itemValue="best" />
-								<p:ajax listener="#{postController.sort}" update=":fragment" />
+								<p:ajax listener="#{postController.sort}" update=":container" />
 							</p:selectOneButton>
 						</h:form>
 					</b:column>

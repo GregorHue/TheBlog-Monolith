@@ -8,6 +8,7 @@ import javax.inject.Named;
 
 import com.gregorhue.theblog.dto.CommentDto;
 import com.gregorhue.theblog.dto.PostDto;
+import com.gregorhue.theblog.helper.SortAndFilterHelper;
 import com.gregorhue.theblog.model.Vote;
 import com.gregorhue.theblog.service.CommentService;
 import com.gregorhue.theblog.service.PostService;
@@ -33,6 +34,7 @@ public class PostController implements Serializable {
     private PostService postService;
 
     private List<CommentDto> comments;
+    private List<CommentDto> sortedComments;
 
     private Long postId;
 
@@ -45,7 +47,7 @@ public class PostController implements Serializable {
     public void onInit() {
         post = postService.getPostById(postId);
         comments = commentService.getAllCommentsByPostId(postId);
-
+        sortedComments = SortAndFilterHelper.sort(comments, sortOrder);
     }
 
     public CommentDto getComment(Long id) {
@@ -72,7 +74,6 @@ public class PostController implements Serializable {
 
     private void patchComment(Long id, CommentDto commentDto) {
         commentService.patchComment(id, commentDto);
-        comments = commentService.getAllCommentsByPostId(postId);
     }
 
     public void upvoteComment(CommentDto commentDto) {
@@ -120,12 +121,16 @@ public class PostController implements Serializable {
         return sortOrder;
     }
 
-    public void setSortOrder(String sortOrder) {
+    public List<CommentDto> getSortedComments() {
+		return sortedComments;
+	}
+
+	public void setSortOrder(String sortOrder) {
         this.sortOrder = sortOrder;
     }
 
     public void sort() {
-        System.out.println(sortOrder);
+    	sortedComments = SortAndFilterHelper.sort(comments, sortOrder);
     }
 }
 

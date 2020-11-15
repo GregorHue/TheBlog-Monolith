@@ -4,6 +4,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.gregorhue.theblog.dto.CommentDto;
 import com.gregorhue.theblog.dto.PostDto;
 
 /**
@@ -29,6 +30,22 @@ public class SortAndFilterHelper {
 			}
 		}
 		return posts;
+	}
+	
+	public static List<CommentDto> sort(List<CommentDto> comments, String sortOrder) {
+
+		if (comments != null) {
+			switch (sortOrder) {
+			case "newest":
+				comments.sort(Comparator.comparing(CommentDto::getCreatedAt).reversed());
+				break;
+			case "best":
+				comments.sort(Comparator.comparing(CommentDto::getLikes).reversed());
+				break;
+			default:
+			}	
+		}
+		return comments;
 	}
 	
 }
