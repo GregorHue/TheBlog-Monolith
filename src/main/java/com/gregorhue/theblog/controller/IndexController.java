@@ -1,5 +1,14 @@
 package com.gregorhue.theblog.controller;
 
+import java.io.Serializable;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.annotation.PostConstruct;
+import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import com.gregorhue.theblog.dto.CategoryDto;
 import com.gregorhue.theblog.dto.PostDto;
 import com.gregorhue.theblog.helper.SortAndFilterHelper;
@@ -12,14 +21,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import javax.annotation.PostConstruct;
-import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
-import java.io.Serializable;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Created by gregorhue on 09.10.2020.
@@ -85,7 +86,7 @@ public class IndexController implements Serializable {
 
 	public void updatePost() {
 		Long postId = Long.parseLong(currentPost.getPostUrl().split("=")[1]);
-		PostDto updatedPostDto = postService.updatePost(postId, currentPost);
+		postService.updatePost(postId, currentPost);
 		posts = postService.getAllPosts();
 		filteredAndSortedPosts = SortAndFilterHelper.sortAndFilter(posts, sortOrder, filter);
 	}

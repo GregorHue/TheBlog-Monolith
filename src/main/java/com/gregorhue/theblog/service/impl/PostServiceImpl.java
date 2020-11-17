@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.security.enterprise.identitystore.Pbkdf2PasswordHash;
+
 import com.gregorhue.theblog.dto.PostDto;
 import com.gregorhue.theblog.mapper.PostMapper;
 import com.gregorhue.theblog.model.Category;
@@ -35,7 +37,7 @@ public class PostServiceImpl implements PostService {
 	public List<PostDto> getAllPosts() {
 		List<Post> posts = postRepository.findAll();
 		posts.forEach(post -> post.setAuthorname(post.getAuthor().getUsername()));
-		return postMapper.toPostDtos(posts);
+		return postMapper.toPostDtos(posts);	
 	}
 
 	@Override
