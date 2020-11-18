@@ -1,9 +1,11 @@
 package com.gregorhue.theblog.controller;
 
 import java.io.Serializable;
+import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.security.enterprise.SecurityContext;
 
 import com.gregorhue.theblog.dto.UserDto;
 import com.gregorhue.theblog.service.UserService;
@@ -30,11 +32,16 @@ public class ProfileController implements Serializable {
 	@Inject
 	private UserService userService;
 
-	private int currentUserId;
+	@Inject
+	SecurityContext securityContext;
+
+	private String currentUserName;
 	private UserDto currentUser;
-	
+
+	@PostConstruct
 	public void onInit() {
-		currentUser = userService.getUserById((long) currentUserId);
+		currentUserName = securityContext.getCallerPrincipal().getName();
+		currentUser = userService.getUserByUsername(currentUserName);
 	}
 
 }

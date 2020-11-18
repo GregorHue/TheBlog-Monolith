@@ -14,28 +14,34 @@
 <h:body>
 	<ui:composition>
 		<b:modal id="modal4" title="Login" size="lg">
-			<h:form id="form4">
+			<b:form id="form4">
+				<b:messages globalOnly="true" id="messages" redisplay="false"/>
 				<b:inputText label="Username:" labelStyle="width:90px;"
 					value="#{loginController.loginDto.username}" />
-				<b:inputText label="Password:" labelStyle="width:90px;"
+				<b:inputText type="password" label="Password:" labelStyle="width:90px;"
 					value="#{loginController.loginDto.password}" />
 				<div style="display: flex; justify-content: flex-end;">
 					<b:button value="Cancel" dismiss="modal" look="primary"
 						styleClass="btn-modal" style="margin-right: 8px;" />
 					<b:commandButton value="Login" look="primary" styleClass="btn-modal"
-						oncomplete="dismissModal4()" ajax="true" update=":navbar"
+						oncomplete="dismissModal4()" ajax="true" update="@form :container :navbar"
 						actionListener="#{loginController.login}" />
 				</div>
-			</h:form>
+				<b:fetchBeanInfos />
+			</b:form>
 		</b:modal>
 		<script>
 			function showModal4() {
-				console.log('ubu')
+				document.getElementById("form4").reset();
 				$('#modal4').modal('show');
 			}
 
 			function dismissModal4() {
-				$('#modal4').modal('hide');
+				if (!(bfHasError || bfHasFatalError)) {
+					setTimeout(function () {
+						$('#modal4').modal('hide');
+					}, 4000);
+				}
 			}
 		</script>
 	</ui:composition>>

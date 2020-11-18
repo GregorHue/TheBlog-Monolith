@@ -30,6 +30,29 @@
 		<url-pattern>*.xhtml</url-pattern>
 	</servlet-mapping>
 
+	<security-constraint>
+		<display-name>ROLE_ADMIN</display-name>
+		<web-resource-collection>
+			<web-resource-name>User Page</web-resource-name>
+			<url-pattern>/user.xhtml</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>ROLE_ADMIN</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+	<security-constraint>
+		<display-name>ROLE_USER</display-name>
+		<web-resource-collection>
+			<web-resource-name>Profile Page</web-resource-name>
+			<url-pattern>/profile.xhtml</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>ROLE_ADMIN</role-name>
+			<role-name>ROLE_USER</role-name>
+		</auth-constraint>
+	</security-constraint>
+
 	<welcome-file-list>
 		<welcome-file>index.xhtml</welcome-file>
 	</welcome-file-list>
