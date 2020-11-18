@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	  xmlns:h="http://xmlns.jcp.org/jsf/html"
-	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	  xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
 
 <h:head>
 	<title>TheBlog</title>
@@ -17,11 +17,16 @@
 				<b:navLink value="Profile" outcome="profile" />
 				<b:navLink value="Users" outcome="user" />
 			</b:navbarLinks>
-			<b:navbarLinks pull="right">
-				<b:navLink value="Signup" />
-				<b:navLink value="Login" oncomplete="showModal4()" ajax="true" update=":form4"/>
-				<b:navLink value="Logout" style="margin-right: 10px" />
-			</b:navbarLinks>
+			<b:form>
+				<b:navbarLinks pull="right">
+
+					<b:navLink value="Signup" />
+					<b:navLink value="Login" oncomplete="showModal4()" ajax="true"
+						update=":form4" />
+					<b:navCommandLink value="Logout" style="margin-right: 10px"
+						action="#{loginController.logout}" />
+				</b:navbarLinks>
+			</b:form>
 		</b:navBar>
 		<b:jumbotron>
 			<b:container>

@@ -17,6 +17,7 @@ import javax.security.enterprise.AuthenticationStatus;
 import javax.security.enterprise.SecurityContext;
 import javax.security.enterprise.authentication.mechanism.http.AuthenticationParameters;
 import javax.security.enterprise.credential.UsernamePasswordCredential;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -60,8 +61,15 @@ public class LoginController implements Serializable {
 			case SUCCESS:
 				facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Login was successful", null));
 				break;
+		default:
+			break;
 		}
 		loginDto = LoginDto.builder().build();
+	}
+	
+	public String logout() throws ServletException {
+		((HttpServletRequest) getExternalContext().getRequest()).logout();
+		return "/index.xhtml?faces-redirect=true";
 	}
 
 	private AuthenticationStatus processAuthentication() {
