@@ -1,6 +1,7 @@
 package com.gregorhue.theblog.repository;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
 
@@ -23,6 +24,12 @@ public class UserRepository extends AbstractRepository<User> implements Serializ
 		return entityManager.createQuery("select u from User u where u.username=:name", User.class)
 				.setParameter("name", username)
 				.getSingleResult();
+	}
+	
+	public List<User> findAllByUsername(String username) {		
+		return entityManager.createQuery("select u from User u where u.username=:name", User.class)
+				.setParameter("name", username)
+				.getResultList();
 	}
 
 }

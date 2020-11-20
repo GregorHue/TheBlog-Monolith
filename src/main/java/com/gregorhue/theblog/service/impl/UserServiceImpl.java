@@ -73,5 +73,11 @@ public class UserServiceImpl implements UserService {
 		userRepository.updateEntry(user);
 	}
 
+	@Override
+	public boolean isUsernameExist(String username) {
+		List<User> users = userRepository.findAllByUsername(username);
+		return !users.isEmpty();
+	}
+
 }
 

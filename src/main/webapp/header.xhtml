@@ -20,7 +20,8 @@
 			<b:form>
 				<b:navbarLinks pull="right">
 
-					<b:navLink value="Signup" />
+					<b:navLink value="Signup" oncomplete="showModal5()" ajax="true"
+						update=":form5" />
 					<b:navLink value="Login" oncomplete="showModal4()" ajax="true"
 						update=":form4" />
 					<b:navCommandLink value="Logout" style="margin-right: 10px"
@@ -40,7 +41,7 @@
 				</b:row>
 			</b:container>
 		</b:jumbotron>
-
+		<ui:include src="./signup.xhtml" />
 		<ui:include src="./login.xhtml" />
 	</ui:composition>
 </h:body>

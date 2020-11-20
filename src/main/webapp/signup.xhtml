@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>TheBlog</title>
+	<h:outputStylesheet name="css/style.css" />
+</h:head>
+<h:body>
+	<ui:composition>
+		<b:modal id="modal5" title="Signup" size="lg">
+			<b:form id="form5">
+				<b:messages globalOnly="true" id="messages" redisplay="false"/>
+				<b:inputText label="Username:" labelStyle="width:90px;"
+					value="#{signupController.signupDto.username}" />
+				<b:inputText type="password" label="Password:" labelStyle="width:90px;"
+					value="#{signupController.signupDto.password}" />
+					<b:inputText type="password" label="Confirm Password:" labelStyle="width:200px;"
+					value="#{signupController.signupDto.confirmPassword}" />
+				<div style="display: flex; justify-content: flex-end;">
+					<b:button value="Cancel" dismiss="modal" look="primary"
+						styleClass="btn-modal" style="margin-right: 8px;" />
+					<b:commandButton value="Signup" look="primary" styleClass="btn-modal"
+						oncomplete="dismissModal5()" ajax="true" update="@form :container :navbar"
+						actionListener="#{signupController.signup}" />
+				</div>
+				<b:fetchBeanInfos />
+			</b:form>
+		</b:modal>
+		<script>
+			function showModal5() {
+				document.getElementById("form5").reset();
+				$('#modal5').modal('show');
+			}
+
+			function dismissModal5() {
+				if (!(bfHasError || bfHasFatalError)) {
+					setTimeout(function () {
+						$('#modal5').modal('hide');
+					}, 3000);
+				}
+			}
+		</script>
+	</ui:composition>>
+	</h:body>
+</html>

@@ -17,4 +17,11 @@ public class RoleRepository extends AbstractRepository<Role> implements Serializ
 	public RoleRepository() {
 		setClazz(Role.class);
 	}
+
+	public Role findByName(String name) {
+		
+		return entityManager.createQuery("select r from Role r where r.name=:name", Role.class)
+				.setParameter("name", name)
+				.getSingleResult();
+	}
 }
