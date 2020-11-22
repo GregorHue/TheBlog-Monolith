@@ -3,6 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
 	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
 
 <h:head>
@@ -14,18 +15,22 @@
 		<b:navBar brand="TheBlog" styleClass="noMargin" id="navbar">
 			<b:navbarLinks>
 				<b:navLink value="Home" outcome="index" />
-				<b:navLink value="Profile" outcome="profile" />
-				<b:navLink value="Users" outcome="user" />
+				<b:navLink value="Profile" rendered="#{!empty loginController.securityContext.callerPrincipal}" outcome="profile" />
+				<b:navLink value="Users" outcome="user" rendered="#{loginController.securityContext.isCallerInRole('ROLE_ADMIN')}"/>
 			</b:navbarLinks>
+			
+			<h:panelGroup style="color: white; margin-left: 15px;"  styleClass="navbar-text" rendered="#{!empty loginController.securityContext.callerPrincipal}">
+					Signed in as #{loginController.securityContext.callerPrincipal.name}</h:panelGroup>
+					
 			<b:form>
 				<b:navbarLinks pull="right">
 
 					<b:navLink value="Signup" oncomplete="showModal5()" ajax="true"
-						update=":form5" />
+						rendered="#{empty loginController.securityContext.callerPrincipal}" update=":form5" />
 					<b:navLink value="Login" oncomplete="showModal4()" ajax="true"
-						update=":form4" />
+						rendered="#{empty loginController.securityContext.callerPrincipal}" update=":form4" />
 					<b:navCommandLink value="Logout" style="margin-right: 10px"
-						action="#{loginController.logout}" />
+						action="#{loginController.logout}" rendered="#{!empty loginController.securityContext.callerPrincipal}" />
 				</b:navbarLinks>
 			</b:form>
 		</b:navBar>

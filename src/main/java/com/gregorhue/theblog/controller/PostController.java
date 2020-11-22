@@ -2,6 +2,9 @@ package com.gregorhue.theblog.controller;
 
 import java.io.Serializable;
 import java.util.List;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -40,6 +43,9 @@ public class PostController implements Serializable {
 
     @Inject
     private PostService postService;
+    
+	@Inject
+	FacesContext facesContext;
 
     private List<CommentDto> comments;
     private List<CommentDto> sortedComments;
@@ -104,5 +110,9 @@ public class PostController implements Serializable {
     public void sort() {
     	sortedComments = SortAndFilterHelper.sort(comments, sortOrder);
     }
+    
+	public void toggleGrowl() {
+		facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Signup or login to leave a vote!", null));
+	}
 }
 

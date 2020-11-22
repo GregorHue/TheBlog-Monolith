@@ -16,19 +16,30 @@
 	<f:view>
 		<ui:include src="./header.xhtml" />
 		<b:container id="container">
+			<p:growl life="4000" />
 			<h:form>
 				<h2 style="text-align: center; margin-top: 8px;">
 					Posts
-					<b:commandButton value="New Post" tooltip="New Post" style="vertical-align: text-top !important"
-						styleClass="btn-modal" tooltipPosition="right" ajax="true"
-						oncomplete="showModal3()" look="primary"
-						actionListener="#{indexController.createNewPost}" />
+					<ui:fragment
+						rendered="#{!empty loginController.securityContext.callerPrincipal}">
+						<b:commandButton value="New Post" tooltip="New Post"
+							style="vertical-align: text-top !important"
+							styleClass="btn-modal" tooltipPosition="right" ajax="true"
+							oncomplete="showModal3()" look="primary"
+							actionListener="#{indexController.createNewPost}" />
+					</ui:fragment>
+					<ui:fragment
+						rendered="#{empty loginController.securityContext.callerPrincipal}">
+						<b:badge value="Login or signup for a post" severity="info"
+							style="font-size: 18, font-weight: normal" />
+					</ui:fragment>
 				</h2>
 			</h:form>
 			<b:column col-sm="9" col-md="9" col-lg="10">
 				<ui:fragment id="fragment"
-					rendered="#{indexController.posts != null and indexController.posts.size() > 0}">
-					<ui:repeat value="#{indexController.filteredAndSortedPosts}" var="post">
+					rendered="#{!empty indexController.posts}">
+					<ui:repeat value="#{indexController.filteredAndSortedPosts}"
+						var="post">
 						<b:row>
 							<b:column col-md="11">
 								<b:well styleClass="small-padding">
@@ -45,7 +56,8 @@
 										<b:column col-xs="1"
 											style="align-self: center; text-align: center">
 											<h:form>
-												<ui:fragment rendered="true">
+												<ui:fragment
+													rendered="#{!empty loginController.securityContext.callerPrincipal}">
 													<b:commandButton styleClass="buttonLink" tooltip="Upvote"
 														update="container" ajax="true"
 														actionListener="#{indexController.upvotePost(post)}">
@@ -53,23 +65,38 @@
 															styleClass="text-muted small-line-height" />
 													</b:commandButton>
 												</ui:fragment>
-												<ui:fragment rendered="false">
-
+												<ui:fragment
+													rendered="#{empty loginController.securityContext.callerPrincipal}">
+													<b:commandButton styleClass="buttonLink"
+														tooltip="Login or signup for voting" update="container"
+														ajax="true"
+														actionListener="#{indexController.toggleGrowl}">
+														<b:iconAwesome value="caret-up" size="2x"
+															styleClass="text-muted small-line-height" />
+													</b:commandButton>
 												</ui:fragment>
 												<div jsf:id="divLikes">
 													<h:outputText id="tLikes" value="#{post.likes}" />
 												</div>
-												<ui:fragment rendered="true">
+												<ui:fragment
+													rendered="#{!empty loginController.securityContext.callerPrincipal}">
 													<b:commandButton styleClass="buttonLink buttonMargin"
-														tooltip="Downvote" update="container" tooltipPosition="right"
-														ajax="true"
+														tooltip="Downvote" update="container"
+														tooltipPosition="right" ajax="true"
 														actionListener="#{indexController.downvotePost(post)}">
 														<b:iconAwesome value="caret-down" size="2x"
 															styleClass="text-muted small-line-height" />
 													</b:commandButton>
 												</ui:fragment>
-												<ui:fragment rendered="false">
-
+												<ui:fragment
+													rendered="#{empty loginController.securityContext.callerPrincipal}">
+													<b:commandButton styleClass="buttonLink buttonMargin"
+														tooltip="Login or signup for voting" update="container"
+														tooltipPosition="right" ajax="true"
+														actionListener="#{indexController.toggleGrowl}">
+														<b:iconAwesome value="caret-down" size="2x"
+															styleClass="text-muted small-line-height" />
+													</b:commandButton>
 												</ui:fragment>
 											</h:form>
 										</b:column>
@@ -115,16 +142,22 @@
 										</b:column>
 										<b:column colSm="12" colLg="2">
 											<h:form>
-												<b:commandButton tooltip="Edit Post" tooltipPosition="left"
-													ajax="true" oncomplete="showModal1()" update=":form1"
-													look="primary" iconAwesome="fa-pencil" class="icon"
-													actionListener="#{indexController.setCurrentPost(post)}">
-												</b:commandButton>#{" "}
-                                                <b:commandButton
-													tooltip="Delete Post" tooltipPosition="right" ajax="true"
-													oncomplete="showModal2()" look="primary"
-													iconAwesome="fa-trash" class="icon"
-													actionListener="#{indexController.setCurrentPost(post)}" />
+												<ui:fragment
+													rendered="#{loginController.securityContext.callerPrincipal.name == post.authorname}">
+													<b:commandButton tooltip="Edit Post" tooltipPosition="left"
+														ajax="true" oncomplete="showModal1()" update=":form1"
+														look="primary" iconAwesome="fa-pencil" class="icon"
+														actionListener="#{indexController.setCurrentPost(post)}">
+													</b:commandButton>
+												</ui:fragment>#{" "}
+												<ui:fragment
+													rendered="#{loginController.securityContext.isCallerInRole('ROLE_ADMIN')}">
+													<b:commandButton tooltip="Delete Post"
+														tooltipPosition="right" ajax="true"
+														oncomplete="showModal2()" look="primary"
+														iconAwesome="fa-trash" class="icon"
+														actionListener="#{indexController.setCurrentPost(post)}" />
+												</ui:fragment>
 											</h:form>
 										</b:column>
 									</b:row>

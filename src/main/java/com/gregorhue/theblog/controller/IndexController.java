@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -44,6 +46,9 @@ public class IndexController implements Serializable {
 	
 	@Inject
 	private CategoryService categoryService;
+	
+	@Inject
+	FacesContext facesContext;
 	
 	private List<PostDto> posts;
 	private List<PostDto> filteredAndSortedPosts;
@@ -124,6 +129,10 @@ public class IndexController implements Serializable {
 
 	public void filter() {
 		filteredAndSortedPosts = SortAndFilterHelper.sortAndFilter(posts, sortOrder, filter);
+	}
+	
+	public void toggleGrowl() {
+		facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Signup or login to leave a vote!", null));
 	}
 
 }

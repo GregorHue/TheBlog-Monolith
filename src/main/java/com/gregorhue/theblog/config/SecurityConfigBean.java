@@ -11,7 +11,7 @@ import javax.security.enterprise.identitystore.DatabaseIdentityStoreDefinition;
 
 @DatabaseIdentityStoreDefinition(
 		dataSourceLookup = "jdbc/__default",
-		callerQuery = "select u.PASSWORD from USER u where u.USERNAME = ?",
+		callerQuery = "select u.PASSWORD from USER u where u.DELETED_TS is null and u.USERNAME = ?",
 		groupsQuery = "select r.NAME from USER_ROLE ur JOIN USER u ON ur.USER_ID = u.ID JOIN ROLE r ON ur.ROLE_ID = r.ID where u.USERNAME = ?"
 		)
 

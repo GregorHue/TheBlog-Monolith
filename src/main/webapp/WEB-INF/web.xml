@@ -29,6 +29,13 @@
 		<servlet-name>Faces Servlet</servlet-name>
 		<url-pattern>*.xhtml</url-pattern>
 	</servlet-mapping>
+	
+	<security-role>
+		<role-name>ROLE_USER</role-name>
+	</security-role>
+	<security-role>
+		<role-name>ROLE_ADMIN</role-name>
+	</security-role>
 
 	<security-constraint>
 		<display-name>ROLE_ADMIN</display-name>

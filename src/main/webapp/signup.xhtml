@@ -15,7 +15,6 @@
 	<ui:composition>
 		<b:modal id="modal5" title="Signup" size="lg">
 			<b:form id="form5">
-				<b:messages globalOnly="true" id="messages" redisplay="false"/>
 				<b:inputText label="Username:" labelStyle="width:90px;"
 					value="#{signupController.signupDto.username}" />
 				<b:inputText type="password" label="Password:" labelStyle="width:90px;"
@@ -40,9 +39,7 @@
 
 			function dismissModal5() {
 				if (!(bfHasError || bfHasFatalError)) {
-					setTimeout(function () {
-						$('#modal5').modal('hide');
-					}, 3000);
+					$('#modal5').modal('hide');
 				}
 			}
 		</script>
