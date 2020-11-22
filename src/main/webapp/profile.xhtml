@@ -14,9 +14,10 @@
 <h:body>
 	<f:view>
 		<ui:include src="./header.xhtml" />
-		<h2 class="text-center">Edit Profile</h2>
 		<b:container id="container">
+		<h2 style="margin-top: 15px !important" class="text-center">Edit Profile</h2>		
 			<b:form horizontal="true">
+			<b:messages globalOnly="true" id="messages" style="margin-top: 10px !important; margin-bottom: 10px !important;"/>
 				<b:row>
 					<b:column col-sm="6">
 						<b:row>
@@ -88,11 +89,10 @@
 							label-col-sm="4" col-sm="8" />
 					</b:column>
 				</b:row>
-				<hr />
 				<b:row>
 					<b:column col-sm="3" offset-sm="9">
 						<b:commandButton type="submit" ajax="true" look="primary" update=":container"
-							value="Save Changes" />
+							value="Save Changes" actionListener="#{profileController.updateUser}" />
 					</b:column>
 				</b:row>
 			</b:form>

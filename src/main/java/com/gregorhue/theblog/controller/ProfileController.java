@@ -3,6 +3,8 @@ package com.gregorhue.theblog.controller;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.security.enterprise.SecurityContext;
@@ -34,6 +36,9 @@ public class ProfileController implements Serializable {
 
 	@Inject
 	SecurityContext securityContext;
+	
+	@Inject
+	FacesContext facesContext;
 
 	private String currentUserName;
 	private UserDto currentUser;
@@ -42,6 +47,11 @@ public class ProfileController implements Serializable {
 	public void onInit() {
 		currentUserName = securityContext.getCallerPrincipal().getName();
 		currentUser = userService.getUserByUsername(currentUserName);
+	}
+	
+	public void updateUser() {
+		userService.updateUser(currentUser.getId(), currentUser);
+		facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Changes successfully saved", null));
 	}
 
 }
