@@ -8,5 +8,5 @@ import com.gregorhue.theblog.dto.SignupDto;
 
 public interface SignupService {
 
-	public void signup(SignupDto signupDto);
+	public boolean signup(SignupDto signupDto);
 }
