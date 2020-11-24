@@ -14,9 +14,9 @@
 	<ui:composition>
 		<b:navBar brand="TheBlog" styleClass="noMargin" id="navbar">
 			<b:navbarLinks>
-				<b:navLink value="Home" outcome="index" />
-				<b:navLink value="Profile" rendered="#{!empty loginController.securityContext.callerPrincipal}" outcome="profile" />
-				<b:navLink value="Users" outcome="user" rendered="#{loginController.securityContext.isCallerInRole('ROLE_ADMIN')}"/>
+				<b:navLink value="Home" outcome="index" icon-awesome="fa-home"/>
+				<b:navLink value="Profile" rendered="#{!empty loginController.securityContext.callerPrincipal}" outcome="profile" icon-awesome="fa-user"/>
+				<b:navLink value="Users" outcome="user" rendered="#{loginController.securityContext.isCallerInRole('ROLE_ADMIN')}" icon-awesome="fa-users"/>
 			</b:navbarLinks>
 			
 			<h:panelGroup style="color: white; margin-left: 15px;"  styleClass="navbar-text" rendered="#{!empty loginController.securityContext.callerPrincipal}">
@@ -25,11 +25,11 @@
 			<b:form>
 				<b:navbarLinks pull="right">
 
-					<b:navLink value="Signup" oncomplete="showModal5()" ajax="true"
+					<b:navLink value="Signup" oncomplete="showModal5()" ajax="true" icon-awesome="fa-user-plus"
 						rendered="#{empty loginController.securityContext.callerPrincipal}" update=":form5" />
-					<b:navLink value="Login" oncomplete="showModal4()" ajax="true"
+					<b:navLink value="Login" oncomplete="showModal4()" ajax="true" icon-awesome="fa-sign-in"
 						rendered="#{empty loginController.securityContext.callerPrincipal}" update=":form4" />
-					<b:navCommandLink value="Logout" style="margin-right: 10px"
+					<b:navCommandLink value="Logout" style="margin-right: 10px" icon-awesome="fa-sign-out"
 						action="#{loginController.logout}" rendered="#{!empty loginController.securityContext.callerPrincipal}" />
 				</b:navbarLinks>
 			</b:form>
