@@ -1,8 +1,5 @@
 package com.gregorhue.theblog.service.impl;
 
-import com.gregorhue.theblog.controller.LoginController;
-import com.gregorhue.theblog.controller.SignupController;
-import com.gregorhue.theblog.dto.LoginDto;
 import com.gregorhue.theblog.dto.SignupDto;
 import com.gregorhue.theblog.model.Role;
 import com.gregorhue.theblog.model.User;
@@ -18,7 +15,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.security.enterprise.identitystore.Pbkdf2PasswordHash;
-import javax.transaction.Transactional;
 
 /**
  * Created by gregorhue on 20.11.2020.
@@ -54,13 +50,13 @@ public class SignupServiceImpl implements SignupService {
 				user.getRoles().add(role);
 				role.getUsers().add(user);
 				userRepository.saveNewEntity(user);
-				facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Account successfully created", null));
+				facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Account successfully created.", null));
 				result = true;
 			} else {
-				facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Username already exits", null));
+				facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Username already exits.", null));
 			}
 		} else {
-			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "No consistent inputs for password", null));
+			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Inconsistent password inputs!", null));
 		}
 		return result;
 	}

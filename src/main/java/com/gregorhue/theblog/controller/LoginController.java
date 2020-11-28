@@ -56,10 +56,10 @@ public class LoginController implements Serializable {
 				facesContext.renderResponse();
 				break;
 			case SEND_FAILURE:
-				facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Invalid Credentials", null));
+				facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Invalid Credentials!", null));
 				break;
 			case SUCCESS:
-				facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Login was successful", null));
+				facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Login was successful.", null));
 				break;
 		default:
 			break;
