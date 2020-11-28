@@ -3,7 +3,7 @@ A Jakarta EE implementation of a demo blog
 
 ## Prerequisites
 
-As a prerequisite Maven 3 and JAVA 8 have to be installed on your computer.
+As a prerequisite JAVA 8(u162+) or JAVA 11(11.0.4+) and Maven 3.3.9 or above have to be installed on your computer.
 
 ## Installation 
 
