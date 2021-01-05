@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.security.enterprise.SecurityContext;
 
 import com.gregorhue.theblog.dto.CommentDto;
 import com.gregorhue.theblog.mapper.CommentMapper;
@@ -31,6 +32,9 @@ public class CommentServiceImpl implements CommentService {
 	private PostRepository postRepository;
 	@Inject
 	private CommentMapper commentMapper;
+	@Inject
+	SecurityContext securityContext;
+
 
 	@Override
 	public List<CommentDto> getAllCommentsByPostId(Long postId) {
@@ -69,8 +73,8 @@ public class CommentServiceImpl implements CommentService {
 		Long postId = Long.parseLong(commentDto.getPostUrl().split("=")[1]);
 		Post post = postRepository.findOne(postId);
 		comment.setPost(post);
-		Long authorId = Long.parseLong(commentDto.getAuthorUrl().split("=")[1]);
-		User author = userRepository.findOne(authorId);
+		String username = securityContext.getCallerPrincipal().getName();
+		User author = userRepository.findByUsername(username);
 		comment.setAuthor(author);
 		comment.setAuthorname(comment.getAuthor().getUsername());
 	}

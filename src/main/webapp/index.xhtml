@@ -25,7 +25,7 @@
 						<b:commandButton value="New Post" tooltip="New Post"
 							style="vertical-align: text-top !important"
 							styleClass="btn-modal" tooltipPosition="right" ajax="true"
-							oncomplete="showModal3()" look="primary"
+							oncomplete="showModal3()" look="primary" update=":form3"
 							actionListener="#{indexController.createNewPost}" />
 					</ui:fragment>
 					<ui:fragment
@@ -191,52 +191,60 @@
 			</b:column>
 		</b:container>
 		<b:modal id="modal1" title="Edit Post" size="lg">
-			<h:form id="form1">
-				<b:inputText label="Titel:" labelStyle="width:80px;"
-					value="#{indexController.currentPost.title}" />
-				<b:inputTextarea label="Inhalt:" labelStyle="width:80px;"
-					value="#{indexController.currentPost.content}" />
+			<b:form id="form1">
+				<b:inputText label="Title:" labelStyle="width:80px;"
+					requiredMessage="Title is mandatory"
+					value="#{indexController.currentPost.title}" required="true" />
+				<b:inputTextarea label="Content:" labelStyle="width:80px;"
+					required="true" value="#{indexController.currentPost.content}"
+					requiredMessage="Content is mandatory" />
 				<div style="display: flex; justify-content: flex-end;">
-					<b:button value="Cancel" dismiss="modal" look="primary"
-						styleClass="btn-modal" style="margin-right: 8px;" />
 					<b:commandButton value="OK" look="primary" styleClass="btn-modal"
-						oncomplete="dismissModal1()" ajax="true" update=":container"
+						oncomplete="dismissModal1()" ajax="true" update=":container @form"
 						actionListener="#{indexController.updatePost}" />
+					<b:button value="Cancel" dismiss="modal" look="primary"
+						styleClass="btn-modal" style="margin-left: 8px;" />
 				</div>
-			</h:form>
+				<b:fetchBeanInfos />
+			</b:form>
 		</b:modal>
 		<b:modal id="modal2" title="Confirmation" size="lg" closable="false">
 			<h:outputText value="Do you really want to delete this post?" />
 			<f:facet name="footer">
-				<h:form id="form2">
-					<b:button value="Cancel" dismiss="modal" look="primary"
-						styleClass="btn-modal" />
+				<b:form id="form2">
 					<b:commandButton value="OK" look="primary" styleClass="btn-modal"
 						oncomplete="dismissModal2()" ajax="true" update=":container"
 						actionListener="#{indexController.deletePost}" />
-				</h:form>
+					<b:button value="Cancel" dismiss="modal" look="primary"
+						styleClass="btn-modal" style="margin-left: 8px;" />
+				</b:form>
 			</f:facet>
 		</b:modal>
 		<b:modal id="modal3" title="Create Post" size="lg">
-			<h:form id="form3">
-				<b:inputText label="Titel:" labelStyle="width:80px;"
-					value="#{indexController.currentPost.title}" />
-				<b:inputTextarea label="Inhalt:" labelStyle="width:80px;"
-					value="#{indexController.currentPost.content}" />
+			<b:form id="form3">
+				<b:inputText label="Title:" labelStyle="width:80px;"
+					requiredMessage="Title is mandatory"
+					value="#{indexController.currentPost.title}" required="true" />
+				<b:inputTextarea label="Content:" labelStyle="width:80px;"
+					required="true" value="#{indexController.currentPost.content}"
+					requiredMessage="Content is mandatory" />
 				<b:selectOneMenu label="Category"
-					value="#{indexController.currentPost.category.name}">
+					requiredMessage="Category is mandatory"
+					value="#{indexController.currentPost.category.name}"
+					required="true">
 					<f:selectItems value="#{indexController.cbCategories}"
 						var="category" itemLabel="#{category.name}"
 						itemValue="#{category.name}" />
 				</b:selectOneMenu>
 				<div style="display: flex; justify-content: flex-end;">
-					<b:button value="Cancel" dismiss="modal" look="primary"
-						styleClass="btn-modal" style="margin-right: 8px;" />
 					<b:commandButton value="OK" look="primary" styleClass="btn-modal"
-						oncomplete="dismissModal3()" ajax="true" update=":container"
+						oncomplete="dismissModal3()" ajax="true" update=":container @form"
 						actionListener="#{indexController.saveNewPost}" />
+					<b:button value="Cancel" dismiss="modal" look="primary"
+						styleClass="btn-modal" style="margin-left: 8px;" />
 				</div>
-			</h:form>
+				<b:fetchBeanInfos />
+			</b:form>
 		</b:modal>
 	</f:view>
 	<script>
@@ -249,11 +257,14 @@
 		}
 
 		function showModal3() {
+			document.getElementById("form3").reset();
 			$('#modal3').modal('show');
 		}
 
 		function dismissModal1() {
-			$('#modal1').modal('hide');
+			if (!(bfHasError || bfHasFatalError || validationFailed)) {
+				$('#modal1').modal('hide');
+			}
 		}
 
 		function dismissModal2() {
@@ -261,7 +272,9 @@
 		}
 
 		function dismissModal3() {
-			$('#modal3').modal('hide');
+			if (!(bfHasError || bfHasFatalError || validationFailed)) {
+				$('#modal3').modal('hide');
+			}
 		}
 	</script>
 </h:body>

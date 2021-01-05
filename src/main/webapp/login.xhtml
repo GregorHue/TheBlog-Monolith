@@ -19,12 +19,12 @@
 					value="#{loginController.loginDto.username}" />
 				<b:inputText type="password" label="Password:" labelStyle="width:90px;"
 					value="#{loginController.loginDto.password}" />
-				<div style="display: flex; justify-content: flex-end;">
-					<b:button value="Cancel" dismiss="modal" look="primary"
-						styleClass="btn-modal" style="margin-right: 8px;" />
+				<div style="display: flex; justify-content: flex-end;">				
 					<b:commandButton value="Login" look="primary" styleClass="btn-modal"
 						oncomplete="dismissModal4()" ajax="true" update="@form :container :navbar"
 						actionListener="#{loginController.login}" />
+						<b:button value="Cancel" dismiss="modal" look="primary"
+						styleClass="btn-modal" style="margin-left: 8px;" />
 				</div>
 				<b:fetchBeanInfos />
 			</b:form>

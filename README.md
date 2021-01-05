@@ -60,6 +60,8 @@ In detail:
 
 * Monolithic JakartaEE application
 
+* Java Server Faces as view technology
+
 * Multi tier architecture
 
 * In-memory pre-populated H2 database

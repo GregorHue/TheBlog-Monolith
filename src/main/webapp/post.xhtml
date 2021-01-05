@@ -89,11 +89,19 @@
 							<b:row>
 								<b:column colSm="3">
 									<h:form>
-										<b:commandButton tooltip="New Comment" tooltipPosition="right"
-											ajax="true" oncomplete="showModal1()" update=":form1"
-											look="primary" iconAwesome="fa-commenting" class="icon"
-											actionListener="#{postController.createNewComment}">
-										</b:commandButton>
+										<ui:fragment
+											rendered="#{!empty loginController.securityContext.callerPrincipal}">
+											<b:commandButton tooltip="New Comment"
+												tooltipPosition="right" ajax="true"
+												oncomplete="showModal1()" update=":form1" look="primary"
+												iconAwesome="fa-commenting" class="icon"
+												actionListener="#{postController.createNewComment}">
+											</b:commandButton>
+										</ui:fragment>
+										<ui:fragment
+											rendered="#{empty loginController.securityContext.callerPrincipal}">
+											<b:label value="Login or signup for voting" severity="primary"></b:label>
+										</ui:fragment>
 									</h:form>
 								</b:column>
 								<b:column colSm="9" style="display: flex">
@@ -273,46 +281,51 @@
 			</ui:fragment>
 		</b:container>
 		<b:modal id="modal1" title="Create Comment" size="lg">
-			<h:form id="form1">
-				<b:inputTextarea label="Inhalt:" labelStyle="width:80px;"
+			<b:form id="form1">
+				<b:inputTextarea label="Content:" labelStyle="width:80px;"
+					requiredMessage="Content is mandatory" required="true"
 					value="#{postController.currentComment.content}" />
 				<div style="display: flex; justify-content: flex-end;">
-					<b:button value="Cancel" dismiss="modal" look="primary"
-						styleClass="btn-modal" style="margin-right: 8px;" />
 					<b:commandButton value="OK" look="primary" styleClass="btn-modal"
-						oncomplete="dismissModal1()" ajax="true" update=":container"
+						oncomplete="dismissModal1()" ajax="true" update=":container @form"
 						actionListener="#{postController.saveNewComment}" />
+					<b:button value="Cancel" dismiss="modal" look="primary"
+						styleClass="btn-modal" style="margin-left: 8px;" />
 				</div>
-			</h:form>
+				<b:fetchBeanInfos />
+			</b:form>
 		</b:modal>
 		<b:modal id="modal2" title="Edit Comment" size="lg">
-			<h:form id="form2">
-				<b:inputTextarea label="Inhalt:" labelStyle="width:80px;"
+			<b:form id="form2">
+				<b:inputTextarea label="Content:" labelStyle="width:80px;"
+					requiredMessage="Content is mandatory" required="true"
 					value="#{postController.currentComment.content}" />
 				<div style="display: flex; justify-content: flex-end;">
-					<b:button value="Cancel" dismiss="modal" look="primary"
-						styleClass="btn-modal" style="margin-right: 8px;" />
 					<b:commandButton value="OK" look="primary" styleClass="btn-modal"
-						oncomplete="dismissModal2()" ajax="true" update=":container"
+						oncomplete="dismissModal2()" ajax="true" update=":container @form"
 						actionListener="#{postController.updateComment}" />
+					<b:button value="Cancel" dismiss="modal" look="primary"
+						styleClass="btn-modal" style="margin-left: 8px;" />
 				</div>
-			</h:form>
+				<b:fetchBeanInfos />
+			</b:form>
 		</b:modal>
 		<b:modal id="modal3" title="Confirmation" size="lg" closable="false">
 			<h:outputText value="Do you really want to delete this comment?" />
 			<f:facet name="footer">
-				<h:form id="form3">
-					<b:button value="Cancel" dismiss="modal" look="primary"
-						styleClass="btn-modal" />
+				<b:form id="form3">
 					<b:commandButton value="OK" look="primary" styleClass="btn-modal"
 						oncomplete="dismissModal3()" ajax="true" update=":container"
 						actionListener="#{postController.deleteComment}" />
-				</h:form>
+					<b:button value="Cancel" dismiss="modal" look="primary"
+						styleClass="btn-modal" style="margin-left: 8px;" />
+				</b:form>
 			</f:facet>
 		</b:modal>
 	</f:view>
 	<script>
 		function showModal1() {
+			document.getElementById("form1").reset();
 			$('#modal1').modal('show');
 		}
 
@@ -325,11 +338,15 @@
 		}
 
 		function dismissModal1() {
-			$('#modal1').modal('hide');
+			if (!(bfHasError || bfHasFatalError || validationFailed)) {
+				$('#modal1').modal('hide');
+			}
 		}
 
 		function dismissModal2() {
-			$('#modal2').modal('hide');
+			if (!(bfHasError || bfHasFatalError || validationFailed)) {
+				$('#modal2').modal('hide');
+			}
 		}
 
 		function dismissModal3() {

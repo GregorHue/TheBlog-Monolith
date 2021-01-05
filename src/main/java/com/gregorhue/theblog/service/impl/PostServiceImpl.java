@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.security.enterprise.SecurityContext;
 import javax.security.enterprise.identitystore.Pbkdf2PasswordHash;
 
 import com.gregorhue.theblog.dto.PostDto;
@@ -32,6 +33,8 @@ public class PostServiceImpl implements PostService {
 	private PostRepository postRepository;
 	@Inject
 	private PostMapper postMapper;
+	@Inject
+	SecurityContext securityContext;
 
 	@Override
 	public List<PostDto> getAllPosts() {
@@ -76,8 +79,8 @@ public class PostServiceImpl implements PostService {
 	}
 
 	private void processPostDto(PostDto postDto, Post post) {
-		Long authorId = Long.parseLong(postDto.getAuthorUrl().split("=")[1]);
-		User author = userRepository.findOne(authorId);
+		String username = securityContext.getCallerPrincipal().getName();
+		User author = userRepository.findByUsername(username);
 		post.setAuthor(author);
 		Category category = categoryRepository.findByName(postDto.getCategory().getName());
 		post.setCategory(category);
