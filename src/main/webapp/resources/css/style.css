@@ -93,8 +93,8 @@ div.small-height {
 }
 
 h3.small-y-margin {
-    margin-top: 5px;
-    margin-bottom: 4px;
+    margin-top: 3px;
+    margin-bottom: 1px;
 }
 
 .well.small-y-margin {
@@ -105,5 +105,18 @@ h3.small-y-margin {
 .well.small-margin {
     margin-bottom: 12px;
     margin-top: 12px;
+}
+
+.image {
+  height: 102px;
+  width: 102px;
+  border: 1px solid  rgb(206, 212, 218);
+  border-radius: 3px;
+  margin-top: 10px;
+}
+
+.image-div {
+  height: 103px;
+  width: 103px;
 }
 

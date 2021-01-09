@@ -6,7 +6,9 @@ A Jakarta EE implementation of a demo blog
 
 ## Prerequisites
 
-As a prerequisite JAVA 8(u162+) or JAVA 11(11.0.4+) and Maven 3.3.9 or above have to be installed on your computer.
+As a prerequisite JAVA 8(u162+) or JAVA 11(11.0.4+) and Maven 3.3.9 or above have to be installed on your computer. Ensure 
+that JAVA and Maven are added to your `PATH` and `JAVA_HOME` is correctly set by typing `java --version` and `mvn --version` 
+on the command line.
 
 ## Installation 
 
@@ -27,7 +29,8 @@ The development server will serve the application under the base url `localhost:
 ## IDE
 
 You can work with an IDE of your choice. Please ensure that a Lombok plugin is installed. Note that annotation processing
-has to be enabled for Lombok and MapStruct.
+has to be enabled for Lombok and MapStruct. Because annotation processing might be tricky in an IDE the recommended way of 
+installing and running the application is via the command line as described above.
 
 ## Functionality
 This application provides the common functionality of a blog and includes a roles-based user management. 

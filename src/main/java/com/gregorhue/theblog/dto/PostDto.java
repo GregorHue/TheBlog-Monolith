@@ -1,6 +1,6 @@
 package com.gregorhue.theblog.dto;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 import javax.enterprise.context.Dependent;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -22,8 +22,10 @@ import lombok.NoArgsConstructor;
 @Dependent
 public class PostDto {
 	
-	private LocalDateTime createdAt;
-	private LocalDateTime lastUpdatedAt;
+	private Long id;
+	
+	private Date createdAt;
+	private Date lastUpdatedAt;
 
 	private String title;
 	private String content;
@@ -35,6 +37,8 @@ public class PostDto {
 
 	@JsonProperty("post_url")
 	private String postUrl;
+	
+	private byte[] image;
 	
 	@JsonProperty(access = Access.WRITE_ONLY)
 	private Vote option;

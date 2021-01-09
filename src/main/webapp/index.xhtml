@@ -5,7 +5,9 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:jsf="http://xmlns.jcp.org/jsf"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui"
+	xmlns:o="http://omnifaces.org/ui"
+	xmlns:of="http://omnifaces.org/functions">
 
 <h:head>
 	<title>TheBlog</title>
@@ -100,7 +102,13 @@
 												</ui:fragment>
 											</h:form>
 										</b:column>
-										<b:column col-xs="11">
+										<b:column col-xs="4" col-md="3" col-lg="2">
+											<div class="image-div">
+												<o:graphicImage value="#{imageController.getImage(post.id)}"
+													lastModified="#{post.getLastUpdatedAt() != null ? post.getLastUpdatedAt() : post.getCreatedAt()}" />
+											</div>
+										</b:column>
+										<b:column col-xs="7" col-md="8" col-lg="9">
 											<div class="small-height">#{post.content}</div>
 										</b:column>
 									</b:row>
@@ -147,7 +155,7 @@
 													<b:commandButton tooltip="Edit Post" tooltipPosition="left"
 														ajax="true" oncomplete="showModal1()" update=":form1"
 														look="primary" iconAwesome="fa-pencil" class="icon"
-														actionListener="#{indexController.setCurrentPost(post)}">
+														actionListener="#{indexController.initUpdate(post)}">
 													</b:commandButton>
 												</ui:fragment>#{" "}
 												<ui:fragment
@@ -191,13 +199,31 @@
 			</b:column>
 		</b:container>
 		<b:modal id="modal1" title="Edit Post" size="lg">
-			<b:form id="form1">
+			<b:form id="form1" enctype="multipart/form-data" prependId="false">
 				<b:inputText label="Title:" labelStyle="width:80px;"
 					requiredMessage="Title is mandatory"
 					value="#{indexController.currentPost.title}" required="true" />
 				<b:inputTextarea label="Content:" labelStyle="width:80px;"
 					required="true" value="#{indexController.currentPost.content}"
 					requiredMessage="Content is mandatory" />
+				<o:outputLabel for="image1" value="Image" />
+				<div class="image" style="margin-bottom: 15px">
+					<o:graphicImage value="#{imageController.fetchCurrentImage()}"
+						id="image1" dataURI="true" />
+				</div>
+
+				<o:outputLabel for="file1" value="New Image" />
+				<o:inputFile id="file1" value="#{uploadController.file}"
+					accept="image/*">
+					<f:ajax listener="#{uploadController.read()}"
+						render="@form:preview1" />
+				</o:inputFile>
+				<div class="image">
+					<h:panelGroup id="preview1">
+						<o:graphicImage value="#{uploadController.fetchResizedImage()}"
+							dataURI="true" rendered="#{not empty uploadController.image}" />
+					</h:panelGroup>
+				</div>
 				<div style="display: flex; justify-content: flex-end;">
 					<b:commandButton value="OK" look="primary" styleClass="btn-modal"
 						oncomplete="dismissModal1()" ajax="true" update=":container @form"
@@ -221,7 +247,7 @@
 			</f:facet>
 		</b:modal>
 		<b:modal id="modal3" title="Create Post" size="lg">
-			<b:form id="form3">
+			<b:form id="form3" enctype="multipart/form-data" prependId="false">
 				<b:inputText label="Title:" labelStyle="width:80px;"
 					requiredMessage="Title is mandatory"
 					value="#{indexController.currentPost.title}" required="true" />
@@ -236,6 +262,18 @@
 						var="category" itemLabel="#{category.name}"
 						itemValue="#{category.name}" />
 				</b:selectOneMenu>
+				<o:outputLabel for="file" value="Image" />
+				<o:inputFile id="file" value="#{uploadController.file}"
+					accept="image/*">
+					<f:ajax listener="#{uploadController.read()}"
+						render="@form:preview" />
+				</o:inputFile>
+				<div class="image">
+					<h:panelGroup id="preview">
+						<o:graphicImage value="#{uploadController.fetchResizedImage()}"
+							dataURI="true" rendered="#{not empty uploadController.image}" />
+					</h:panelGroup>
+				</div>
 				<div style="display: flex; justify-content: flex-end;">
 					<b:commandButton value="OK" look="primary" styleClass="btn-modal"
 						oncomplete="dismissModal3()" ajax="true" update=":container @form"

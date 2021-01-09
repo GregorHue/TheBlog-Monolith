@@ -6,8 +6,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.security.enterprise.SecurityContext;
-import javax.security.enterprise.identitystore.Pbkdf2PasswordHash;
-
 import com.gregorhue.theblog.dto.PostDto;
 import com.gregorhue.theblog.mapper.PostMapper;
 import com.gregorhue.theblog.model.Category;
