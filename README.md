@@ -74,3 +74,14 @@ In detail:
 * UI libraries Bootsfaces and Primefaces
 
 * Responsive layout
+
+## Screenshots
+
+### Home Page
+![Home Page](screenshots/Home_jsf.png)
+
+### Create Post
+![Create Post](screenshots/CreatePost_jsf.png)
+
+### Create Comment
+![Create Comment](screenshots/CreateComment_jsf.png)
