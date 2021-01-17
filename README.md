@@ -1,6 +1,6 @@
 | Build Status  | 
 |---|
-|[![CircleCI](https://circleci.com/gh/GregorHue/TheBlog-Monolith.svg?style=svg&circle-token=39d718716aa5c56cf29460c6ac00e25d1f3b2a90)](https://circleci.com/gh/GregorHue/TheBlog-Monolith)|
+|[![CircleCI](https://circleci.com/gh/GregorHue/TheBlog-Monolith.svg?style=svg)](https://circleci.com/gh/GregorHue/TheBlog-Monolith)|
 # TheBlog-Monolith
 A Jakarta EE implementation of a demo blog
 
