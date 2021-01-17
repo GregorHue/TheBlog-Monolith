@@ -5,7 +5,9 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:jsf="http://xmlns.jcp.org/jsf"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui"
+	xmlns:o="http://omnifaces.org/ui"
+	xmlns:of="http://omnifaces.org/functions">
 
 <h:head>
 	<title>TheBlog</title>
@@ -82,7 +84,14 @@
 										</ui:fragment>
 									</h:form>
 								</b:column>
-								<b:column col-xs="11">
+								<b:column col-xs="4" col-md="3" col-lg="2">
+									<div class="image-div">
+										<o:graphicImage
+											value="#{imageController.getImage(postController.post.id)}"
+											lastModified="#{postController.post.getLastUpdatedAt() != null ? postController.post.getLastUpdatedAt() : postController.post.getCreatedAt()}" />
+									</div>
+								</b:column>
+								<b:column col-xs="7" col-md="8" col-lg="9">
 									<div class="small-height">#{postController.post.content}</div>
 								</b:column>
 							</b:row>
@@ -100,7 +109,8 @@
 										</ui:fragment>
 										<ui:fragment
 											rendered="#{empty loginController.securityContext.callerPrincipal}">
-											<b:label value="Login or signup for voting" severity="primary"></b:label>
+											<b:label value="Login or signup for voting"
+												severity="primary"></b:label>
 										</ui:fragment>
 									</h:form>
 								</b:column>

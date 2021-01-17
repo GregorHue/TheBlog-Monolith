@@ -47,6 +47,11 @@ public class Post extends BaseEntity implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="AUTHOR_ID")
 	private User author;
+	
+	@Lob
+	@Basic(fetch = FetchType.LAZY)
+	@Column(name="IMAGE", columnDefinition = "BLOB")
+	private byte[] image;
 
 	@OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
 	@Builder.Default

@@ -50,6 +50,12 @@ public class IndexController implements Serializable {
 	@Inject
 	FacesContext facesContext;
 	
+	@Inject
+	UploadController uploadController;
+	
+	@Inject
+	ImageController imageController;
+	
 	private List<PostDto> posts;
 	private List<PostDto> filteredAndSortedPosts;
 
@@ -61,6 +67,7 @@ public class IndexController implements Serializable {
 	private String sortOrder = "newest";
 
 	private String filter = "All";
+	
 	
 	@PostConstruct
 	public void onInit() {
@@ -76,7 +83,8 @@ public class IndexController implements Serializable {
 	
 	public void createNewPost() {
 		currentPost = new PostDto();
-		currentPost.setCategory(CategoryDto.builder().build());
+		currentPost.setCategory(CategoryDto.builder().build());	
+		uploadController.setResizedImage(null);
 	}
 
 	public void saveNewPost() {
@@ -84,13 +92,17 @@ public class IndexController implements Serializable {
 		if (currentPost.getLikes() == null) {
 			currentPost.setLikes(0);
 		}
-		postService.saveNewPost(currentPost);
+		currentPost.setImage(uploadController.getResizedImage());
+		postService.saveNewPost(currentPost);		
 		posts = postService.getAllPosts();
 		filteredAndSortedPosts = SortAndFilterHelper.sortAndFilter(posts, sortOrder, filter);
 	}
 
 	public void updatePost() {
 		Long postId = Long.parseLong(currentPost.getPostUrl().split("=")[1]);
+		if (uploadController.getResizedImage() != null) {
+			currentPost.setImage(uploadController.getResizedImage());
+		}
 		postService.updatePost(postId, currentPost);
 		posts = postService.getAllPosts();
 		filteredAndSortedPosts = SortAndFilterHelper.sortAndFilter(posts, sortOrder, filter);
@@ -134,6 +146,11 @@ public class IndexController implements Serializable {
 	public void toggleGrowl() {
 		facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Signup or login to leave a vote!", null));
 	}
-
+	
+	public void initUpdate(PostDto post) {
+		currentPost = post;
+		imageController.setCurrentPost(post);
+		uploadController.setResizedImage(null);
+	}
 }
 
